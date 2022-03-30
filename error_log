@@ -1,0 +1,21 @@
+[31-Jul-2019 11:26:10 America/Santiago] PHP Fatal error:  Call to a member function CountProfeJefe() on null in /home/cmvalpar/public_html/acomitil/application/controllers/Inicio.php on line 145
+[01-Aug-2019 12:03:52 America/Santiago] PHP Fatal error:  Cannot redeclare casos_model::getcasosCC() in /home/cmvalpar/public_html/acomitil/application/models/casos_model.php on line 97
+[01-Aug-2019 12:04:23 America/Santiago] PHP Fatal error:  Cannot redeclare casos_model::getcasosCC() in /home/cmvalpar/public_html/acomitil/application/models/casos_model.php on line 97
+[07-Aug-2019 11:21:40 America/Santiago] PHP Fatal error:  Class 'XMLWriter' not found in /home/cmvalpar/public_html/acomitil/application/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Shared/XMLWriter.php on line 6
+[07-Aug-2019 12:25:47 America/Santiago] PHP Fatal error:  Class 'XMLWriter' not found in /home/cmvalpar/public_html/acomitil/application/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Shared/XMLWriter.php on line 6
+[07-Aug-2019 12:26:00 America/Santiago] PHP Fatal error:  Class 'XMLWriter' not found in /home/cmvalpar/public_html/acomitil/application/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Shared/XMLWriter.php on line 6
+[24-Sep-2019 11:22:50 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 11:23:03 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 11:23:38 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 11:25:47 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 11:25:56 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 12:59:24 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[24-Sep-2019 16:03:53 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/index.php on line 70
+[29-Oct-2019 11:28:52 America/Santiago] PHP Fatal error:  Call to undefined method casos_model::idPorRut() in /home/cmvalpar/public_html/acomitil/application/controllers/Perfilcaso.php on line 251
+[29-Oct-2019 11:29:34 America/Santiago] PHP Fatal error:  Call to undefined method casos_model::idPorRut() in /home/cmvalpar/public_html/acomitil/application/controllers/Perfilcaso.php on line 251
+[29-Oct-2019 11:55:58 America/Santiago] PHP Fatal error:  Call to undefined method casos_model::idPorRut() in /home/cmvalpar/public_html/acomitil/application/controllers/Perfilcaso.php on line 192
+[02-Mar-2020 20:46:36 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/cmvalpar/public_html/acomitil/system/libraries/Session/drivers/Session_files_driver.php on line 210
+[31-Aug-2020 15:47:18 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/system/core/CodeIgniter.php on line 91
+[31-Aug-2020 15:47:18 America/Santiago] PHP Parse error:  syntax error, unexpected '.', expecting '&' or T_VARIABLE in /home/cmvalpar/public_html/acomitil/application/vendor/markbaker/complex/classes/src/operations/add.php on line 18
+[31-Aug-2020 15:47:48 America/Santiago] PHP Warning:  ini_set() has been disabled for security reasons in /home/cmvalpar/public_html/acomitil/system/core/CodeIgniter.php on line 91
+[31-Aug-2020 15:47:48 America/Santiago] PHP Parse error:  syntax error, unexpected '.', expecting '&' or T_VARIABLE in /home/cmvalpar/public_html/acomitil/application/vendor/markbaker/complex/classes/src/operations/add.php on line 18
