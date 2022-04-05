@@ -1,1 +1,0 @@
-<link rel="stylesheet" href="<?= base_url('assets/css/chosen.min.css'); ?>" />

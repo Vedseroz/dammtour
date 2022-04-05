@@ -60,7 +60,6 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array('database', 'session', 'form_validation', 'message_handler', 'ion_auth', 'view_handler', 'bootstrap', 'mpdf', 'PHPMailer_Lib');
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -90,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form', 'directory');
+$autoload['helper'] = array();
 
 /*
 | -------------------------------------------------------------------
