@@ -1,4 +1,6 @@
 
+    <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,14 +12,18 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Calendario</li>
+              <li class="breadcrumb-item"><a href="#"><?php echo $before?></a></li>
+              <li class="breadcrumb-item active"><?php echo $actual?></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
+
+     <!--                           ETIQUETAS PRICIPALES DE LA PAGINA, AQUI SE HACEN LAS MODIFICACIONES.                                  -->
+
 
     <!-- Main content -->
     <div class="content">
@@ -26,13 +32,24 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Calendario de eventos</h3>
+                <h3 class="card-title">Listar Pasajeros</h3>
+                        
+                <br><hr>
 
-                <?php $this->load->view('calendario/html.php',$this->data); //llama a la vista calendario.?> 
+                <ul>
+                    <li>
+                    <a href="<?php echo site_url('pasajero/IngresarPasajero')?>" class="btn btn-dark"><p>Agregar Pasajero</p><i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                
+                    <br>
+                    <br>
+                    <?php
+                      // en este sector se carga la tabla con todos los pasajeros. 
+                      $this->load->view('Pasajero/tablapasajeros');
+                    ?>
 
-                <!--contenido de la carta-->  
+                    </li>
+                </ul>
+            
 
               
             </div>
@@ -59,4 +76,4 @@
   <!-- Main Footer -->
   
 </div>
-<!-- ./wrapper -->
+

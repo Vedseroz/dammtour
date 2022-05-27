@@ -11,6 +11,16 @@ class Inicio extends CI_Controller {
 		 if(!$this->ion_auth->logged_in()){
 			 redirect('auth/login','refresh');
 		 }
+
+		//cargar los models. 
+		$this->load->model('Hospedaje_model');
+		$this->load->model('Fecha_model');
+		$this->load->model('Localidad_model');
+		$this->load->model('Pasajero_model');
+
+		 
+
+		 
 	}
 
 	/**
@@ -28,8 +38,15 @@ class Inicio extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-	public function index()
-	{
-		$this->load->view('inicio');
+	public function index(){	
+		$this->load->helper('form');
+
+		$this->data['paises'] = $this->Localidad_model->getpaises();
+		$this->data['localidad'] = $this->Localidad_model->getLocalidades();
+		
+		$this->data['vista'] = 'inicio';
+		$this->load->view('template',$this->data);
 	}
+
+	
 }
