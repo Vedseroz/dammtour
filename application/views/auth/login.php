@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: #92badd;
+  color: #343A40;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
@@ -122,7 +122,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 input[type=text] {
   background-color: #f6f6f6;
   border: none;
-  color: #0d0d0d;
+  color: #343A40;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;

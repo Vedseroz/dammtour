@@ -46,9 +46,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo site_url('chofer');?>" class="nav-link">
+                  <i class="fa fa-car nav-icon"></i>
+                  <p>Chofer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('vehiculo');?>" class="nav-link">
+                  <i class="fa fa-car nav-icon"></i>
+                  <p>Vehiculos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('hospedaje')?>" class="nav-link">
                   <i class="fa fa-building nav-icon"></i>
-                  <p>Hospedaje</p>
+                  <p>Hospedajes</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -37,7 +37,15 @@ class Pasajero extends CI_Controller {
 
 	public function getDatosPasajeros(){
 		$data = $this->Pasajero_model->getDatosPasajeros();
-		echo json_encode($data);
+		foreach($data['data'] as $row){
+			$new_data[] = array(
+				'id' => $row['id_pasajero'],
+				'title'=>$row['nombre'].' '.$row['apellido'],
+				'start'=>$row['fechallegada'].' '.$row['horallegada'],
+				'end'=>$row['fechasalida'].' '.$row['horasalida'],
+			);
+		}
+		echo json_encode($new_data);
 		return;
 	}
 

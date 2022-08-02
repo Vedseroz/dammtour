@@ -5,9 +5,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link href='../assets/fullcalendar/lib/main.css' rel='stylesheet' />
 <script src='../assets/fullcalendar/lib/main.js'></script>
+
+
+
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
+    
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -22,71 +26,15 @@
       editable: true,
       selectable: true,
       selectMirror: true,
+      events:"<?php echo base_url();?>index.php/pasajero/getDatosPasajeros",
       // aqui van las funciones asociadas al select
-      select: function(date,jsEvent,view) {
-        $(this).css('background-color','#2ab1fa');
-        $("#exampleModal").modal(); 
-      },
 
       eventClick: function(arg) {
         if (confirm('Are you sure you want to delete this event?')) {
           arg.event.remove()
         }
       },
-      editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'Business Lunch',
-          start: '2020-09-03T13:00:00',
-          constraint: 'businessHours'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-13T11:00:00',
-          constraint: 'availableForMeeting', // defined below
-          color: '#257e4a'
-        },
-        {
-          title: 'Conference',
-          start: '2020-09-18',
-          end: '2020-09-20'
-        },
-        {
-          title: 'Party',
-          start: '2020-09-29T20:00:00'
-        },
-
-        // areas where "Meeting" must be dropped
-        {
-          groupId: 'availableForMeeting',
-          start: '2020-09-11T10:00:00',
-          end: '2020-09-11T16:00:00',
-          display: 'background'
-        },
-        {
-          groupId: 'availableForMeeting',
-          start: '2020-09-13T10:00:00',
-          end: '2020-09-13T16:00:00',
-          display: 'background'
-        },
-
-        // red areas where no events can be dropped
-        {
-          start: '2020-09-24',
-          end: '2020-09-28',
-          overlap: false,
-          display: 'background',
-          color: '#ff9f89'
-        },
-        {
-          start: '2020-09-06',
-          end: '2020-09-08',
-          overlap: false,
-          display: 'background',
-          color: '#ff9f89'
-        }
-      ]
     });
 
     calendar.render();

@@ -34,45 +34,42 @@
                 <h3 class="card-title">Ingresar Transfer</h3>
                         
                 <br><hr>
-
-                <?php echo validation_errors(); ?>
                 
-                <?= form_open_multipart(site_url('Transfer/IngresarTransferForm'), 'class="form-horizontal" role="form"') ?>
-                  <div class="nombre">
-                    <label for="nombre">Nombre del Chofer:</label>
-                    <input type="text" name="nombre_chofer" id="nombre" value='<?= set_value('nombre_chofer')?>'>
-                  </div>
+                <?= form_open_multipart(site_url('Vehiculo/IngresarVehiculoForm'), 'class="form-horizontal" role="form"') ?>
+                  
 
-                  <div class="apellido">
-                    <label for="apellido">Apellido del Chofer:</label>
-                    <input type="text" name="apellido_chofer" id="apellido" value='<?= set_value('nombre_chofer')?>'>
-                  </div>
-
-                  <div class="tipovehiculo">
-                    <label for="tipovehiculo">Tipo de Vehiculo:</label>
-                    <select name="tipo" id="tipo" value='<?= set_value('nombre_chofer')?>'>
-                        <option value="sedan">Sedan</option>
-                        <option value="van">Van</option>
-                        <option value="hatch">Hatch Back</option>
-                        <option value="suv">SUV</option>
-                    </select>
+                  <div class="marca">
+                    <label for="marca">Marca del Vehiculo:</label>
+                    <input type="text" name="marca" id="marca" value="<?= set_value('marca')?>">
                   </div>
 
                   <div class="modelo">
                     <label for="modelo">Modelo del Vehiculo:</label>
-                    <input type="text" name="modelo" id="modelo">
+                    <input type="text" name="modelo" id="modelo" value="<?= set_value('modelo')?>">
                   </div>
 
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Maletas:</label>
-                    <input type="number" name="cant_maletas" id="cant_maletas" min = "0" max = "6" >
+                  <div class="patente">
+                    <label for="patente">Patente del Vehiculo:</label>
+                    <input type="text" name="patente" id="marca" value="<?= set_value('patente')?>">
                   </div>
+
+                 <div class="tipovehiculo">
+                    <label for="tipovehiculo">Tipo de Vehiculo:</label>
+                    <select name="tipo" id="tipo" value="<?= set_value('tipo')?>">
+                        <option value=""></option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Van">Van</option>
+                        <option value="Hatch Back">Hatch Back</option>
+                        <option value="SUV">SUV</option>
+                    </select>
+                  </div>
+
 
                   <div class="cant_maletas">
                     <label for="acompa">Cantidad de Pasajeros Disponibles:</label>
-                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" >
+                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" value="<?= set_value('cant_pasajeros')?>">
                   </div>
-                 
+
 
                     <div class="clearfix form-actions center">
                       <button class="btn btn-info" type="submit">

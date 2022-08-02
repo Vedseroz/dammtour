@@ -33,9 +33,9 @@ class Transfer extends CI_Controller{
 	}
 
     public function IngresarTransferForm(){
+		$this->load->library('form_validation');
 		//form validation
-
-		$this->form_validation->set_rules('nombre_chofer','<b>Nombre</b>','trim|required');
+		$this->form_validation->set_rules("nombre_chofer","<b>Nombre</b>","required");
 		$this->form_validation->set_rules('apellido_chofer','<b>Apellido</b>','trim|required');
 		$this->form_validation->set_rules('tipo','<b>Tipo de Vehiculo</b>','trim|required');
 		$this->form_validation->set_rules('modelo','<b>Modelo</b>','trim|required');
@@ -63,6 +63,8 @@ class Transfer extends CI_Controller{
 		echo json_encode($data);
 		return;
 	}
+
+	
 
 
 }

@@ -29,7 +29,7 @@ class Pasajero_model extends CI_model {
 
     public function getPasajeros(){
         $query = $this->db->query('SELECT * FROM pasajero');
-        $data = $query->result();
+        $data = $query->result_array();
         return $data;
     }
 
