@@ -55,12 +55,30 @@ class Pasajero_model extends CI_model {
     
     public function getPasajeroById($id_pasajero){
         $query = $this->db->query('SELECT * FROM pasajero WHERE id_pasajero = '.$id_pasajero);
-        $data = $query->result();
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getIdFecha($id_pasajero){
+        $query = $this->db->query('SELECT fecha_id FROM pasajero WHERE id_pasajero = '.$id_pasajero);
+        foreach ($query->result() as $row){
+            $data = $row->fecha_id;
+        }
         return $data;
     }
 
     public function InsertarPasajero($data){
         $this->db->insert('pasajero',$data);
+    }
+
+    public function EditarPasajero($data){
+        $this->db->get('pasajero');
+        $this->db->where('id_pasajero',$data['id_pasajero']);
+        $this->db->update('pasajero',$data);
+    }
+
+    public function EliminarPasajero($data){
+        $this->db->delete('pasajero',array('id_pasajero' => $data['id_pasajero']));
     }
 
 }

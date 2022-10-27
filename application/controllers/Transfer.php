@@ -23,16 +23,16 @@ class Transfer extends CI_Controller{
 		
 	}
 
-    public function IngresarTransfer(){
-		$this->data['actual'] = 'Ingresar Transfer'; //esto deberia ser el breadcrumb.
+    public function AsignarTransfer(){
+		$this->data['actual'] = 'Asignar Transfer'; //esto deberia ser el breadcrumb.
         $this->data['before'] = 'Transfer';
-        $this->data['vista'] = 'transfer/ingresar_transfer'; //con esto se carga la vista
+        $this->data['vista'] = 'transfer/asignar_transfer'; //con esto se carga la vista
 
 		$this->load->view('template',$this->data);
 
 	}
 
-    public function IngresarTransferForm(){
+    public function AsignarTransferForm(){
 		$this->load->library('form_validation');
 		//form validation
 		$this->form_validation->set_rules("nombre_chofer","<b>Nombre</b>","required");

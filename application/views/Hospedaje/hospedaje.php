@@ -1,4 +1,4 @@
- <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
+    <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
+            <h1 class="m-0">Hospedaje</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,20 +31,23 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Lista de Transfer</h3>
+                <h3 class="card-title">Listar Hospedajes</h3>
                         
                 <br><hr>
 
+                <ul>
+                    <li>
+                    <a href="<?php echo site_url('Hospedaje/IngresarHospedaje')?>" class="btn btn-dark"><p>Agregar Hospedaje</p><i class="fa fa-plus" aria-hidden="true"></i></a>
 
                     <br>
                     <br>
                     <?php
                       // en este sector se carga la tabla con todos los pasajeros. 
-                      $this->load->view('Transfer/tablatransfer');
+                    $this->load->view('Hospedaje/tabla_hospedaje');
                     ?>
 
-                    
-                
+                    </li>
+                </ul>
             
 
               

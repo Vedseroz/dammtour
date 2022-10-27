@@ -282,6 +282,9 @@ input[type=text]:placeholder {
     </div>
 
     <!-- Login Form -->
+    <br>
+    <h4 class="blue" id="id-company-text">Dammtour Sigetur</h4>
+
     <?php echo form_open("auth/login");?>
       <!--Nombre de usuario-->
       <?php echo lang('login_identity_label', 'identity');?>
@@ -290,7 +293,7 @@ input[type=text]:placeholder {
       <?php echo lang('login_password_label', 'password');?>
       <?php echo form_input($password);?>
       <!--boton de submit-->
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input type="submit" class="fadeIn fourth" value="Iniciar Sesión">
       <?php echo form_close();?>
 
     <!-- Remind Passowrd -->

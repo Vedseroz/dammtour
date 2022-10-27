@@ -22,8 +22,26 @@ class Fecha_model extends CI_model {
         return $data;
     }
 
+    //==============================================================CRUD
     public function InsertarFecha($data){
         $this->db->insert('fecha',$data);
+    }
+
+    public function EditarFecha($data){
+        $this->db->get('fecha');
+        $this->db->where('id_fecha',$data['id_fecha']);
+        $this->db->update('fecha',$data);
+    }
+
+    public function EliminarFecha($data){
+        $this->db->delete('fecha',array('id_fecha' => $data['id_fecha']));
+    }
+    
+//======================================================================
+    public function getFechaById($id_fecha){
+        $query = $this->db->query('SELECT * FROM fecha WHERE id_fecha = '.$id_fecha);
+        $data = $query->result_array();
+        return $data;
     }
 
     public function getLastId(){
@@ -33,4 +51,7 @@ class Fecha_model extends CI_model {
        }
        return $data;
     }
+
+
+
 }

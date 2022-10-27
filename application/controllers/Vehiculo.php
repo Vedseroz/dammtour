@@ -33,6 +33,14 @@ class Vehiculo extends CI_Controller{
 
 	}
 
+	public function EditarVehiculo($id_vehiculo){
+		$this->data['actual'] = 'Editar Vehiculo';
+		$this->data['before'] = 'Vehiculo';
+		$this->data['vista'] = 'vehiculo/editar_vehiculo';
+		$this->data['vehiculo'] = $this->Vehiculo_model->getVehiculoById($id_vehiculo);  //obtener la informacion del vehiculo.
+		$this->load->view('template',$this->data);
+	}
+
     public function IngresarVehiculoForm(){
 		//form validation
 
@@ -56,6 +64,38 @@ class Vehiculo extends CI_Controller{
 
 		redirect(site_url('vehiculo'));
 
+	}
+
+	public function EditarVehiculoForm($id_vehiculo){
+
+		$this->form_validation->set_rules('marca','<b>Marca</b>','trim|required');
+		$this->form_validation->set_rules('modelo','<b>Modelo</b>','trim|required');
+		$this->form_validation->set_rules('tipo','<b>Tipo de Vehiculo</b>','trim|required');
+		$this->form_validation->set_rules('patente','<b>Patente</b>','trim|required');
+
+		$datos_vehiculo = array(
+			'id_vehiculo' => $id_vehiculo,
+			'marca' => $this->input->post('marca'),
+			'modelo' => $this->input->post('modelo'),
+			'tipo' => $this->input->post('tipo'),
+			'patente' => $this->input->post('patente'),
+			'cant_pasajeros' => $this->input->post('cant_pasajeros'),
+		);
+				
+		$this->Vehiculo_model->EditarVehiculo($datos_vehiculo);
+
+		redirect(site_url('vehiculo'));
+
+	}
+
+	public function eliminarVehiculo($id_vehiculo){  //con esta funcion se llama a la base de datos para que elimine el dato que llega desde la columna de la tabla de la pagina. 
+		$datos= array(
+			'id_vehiculo' => $id_vehiculo
+		);
+		$this->Vehiculo_model->EliminarVehiculo($datos);
+
+		redirect(site_url('vehiculo'));
+		
 	}
 
     public function getDatosVehiculo(){

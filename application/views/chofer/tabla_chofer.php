@@ -38,10 +38,39 @@
                 },
                 {
                     "title": 'Rut',
-                    "data": 'rut',
+                    "data": 'rut_chofer',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
+                },
+                {
+                    "title": 'Telefono',
+                    "data": 'telefono_chofer',
+                    "targets": 3,
+                    "searchable": true,
+                    "visible":true               
+                },
+                {
+                    "title": 'Direccion',
+                    "data": 'direccion_chofer',
+                    "targets": 4,
+                    "searchable": true,
+                    "visible":true               
+                },
+                {
+                "title": 'Opciones',
+                "data": null,
+                "targets": 5,
+                "searchable": false,
+                "orderable": false,
+                "render": function(data,type,row){
+                    
+                    var link = '<?php echo site_url('Chofer/editarChofer'); ?>/' + row.id_chofer;
+                    
+                    return '<a class="btn btn-primary rounded-pill" href="'+link+'"><i class="fa fa-edit"></i></a>'
+                    + '<a onclick="return confirm_modal('+row.id_chofer+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
+
+                    }
                 },
 
             ],
@@ -51,6 +80,16 @@
             }
         })
     });
+
+    function confirm_modal(id){
+        console.log(id);
+        var url='<?php echo site_url('Chofer/eliminarChofer/')?>';
+        var new_url = url+id;
+        //$("url-delete").attr("href",new_url);
+        jQuery('#exampleModal').modal('show',{backdrop : 'static'});
+        var link = document.getElementById('url-delete');
+        link.href = new_url;
+    }
     
 </script>
 
@@ -219,3 +258,26 @@
     
     </div>
 </div> 
+
+<!--Modal-->
+<div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alerta:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
+        <h4>¿Está seguro que quiere eliminar a este chofer?</h4>
+      </div>
+
+      <!--Este es el pie del modal aqui puedes agregar mas botones-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a id="url-delete" name="url-delete" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
+      </div>
+    </div>
+  </div>

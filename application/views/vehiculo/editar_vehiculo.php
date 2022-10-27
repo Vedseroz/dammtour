@@ -35,27 +35,27 @@
                         
                 <br><hr>
                 
-                <?= form_open_multipart(site_url('Vehiculo/IngresarVehiculoForm'), 'class="form-horizontal" role="form"') ?>
+                <?= form_open_multipart(site_url('Vehiculo/EditarVehiculoForm'), 'class="form-horizontal" role="form"') ?>
                   
 
                   <div class="marca">
                     <label for="marca">Marca del Vehiculo:</label>
-                    <input type="text" name="marca" id="marca" value="<?= set_value('marca')?>">
+                    <input type="text" name="marca" id="marca" value="<?= $vehiculo[0]['marca']?>">
                   </div>
 
                   <div class="modelo">
                     <label for="modelo">Modelo del Vehiculo:</label>
-                    <input type="text" name="modelo" id="modelo" value="<?= set_value('modelo')?>">
+                    <input type="text" name="modelo" id="modelo" value="<?= $vehiculo[0]['modelo']?>">
                   </div>
 
                   <div class="patente">
                     <label for="patente">Patente del Vehiculo:</label>
-                    <input type="text" name="patente" id="marca" value="<?= set_value('patente')?>">
+                    <input type="text" name="patente" id="marca" value="<?= $vehiculo[0]['patente']?>">
                   </div>
 
                  <div class="tipovehiculo">
                     <label for="tipovehiculo">Tipo de Vehiculo:</label>
-                    <select name="tipo" id="tipo" value="<?= set_value('tipo')?>">
+                    <select name="tipo" id="tipo" value="<?= $vehiculo[0]['tipo']?>">
                         <option value=""></option>
                         <option value="Sedan">Sedan</option>
                         <option value="Van">Van</option>
@@ -67,7 +67,7 @@
 
                   <div class="cant_maletas">
                     <label for="acompa">Cantidad de Pasajeros Disponibles:</label>
-                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" value="<?= set_value('cant_pasajeros')?>">
+                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" value="<?= $vehiculo[0]['cant_pasajeros']?>">
                   </div>
 
 
@@ -77,7 +77,7 @@
                         Ingresar
                       </button>
 
-                      <a href="<?php echo site_url('vehiculo')?>" class="btn btn-danger" type="reset">
+                      <a href="<?php echo site_url('transfer')?>" class="btn btn-danger" type="reset">
                         <i class="ace-icon fa fa-times bigger-110"></i>
                         Cancelar
                      </a>

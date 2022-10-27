@@ -35,6 +35,23 @@ class Pasajero extends CI_Controller {
 
 	}
 
+	public function editarPasajero($id_pasajero){
+		$this->data['actual'] = 'Editar Pasajero'; //esto deberia ser el breadcrumb.
+        $this->data['before'] = 'Pasajero';
+        $this->data['vista'] = 'pasajero/editar_pasajero'; //con esto se carga la vista
+
+		$this->load->model('Pasajero_model');
+		$this->load->model('Fecha_model');//cargamos los modelos auxiliares
+		//carga de la logica.
+		$this->data['pasajero'] = $this->Pasajero_model->getPasajeroById($id_pasajero);
+		$id_fecha = $this->Pasajero_model->getIdFecha($id_pasajero);
+		$this->data['fecha'] = $this->Fecha_model->getFechaById($id_fecha);
+	
+
+		$this->load->view('template',$this->data);
+
+	}
+
 	public function getDatosPasajeros(){
 		$data = $this->Pasajero_model->getDatosPasajeros();
 		foreach($data['data'] as $row){
@@ -46,6 +63,12 @@ class Pasajero extends CI_Controller {
 			);
 		}
 		echo json_encode($new_data);
+		return;
+	}
+
+	public function getDatosPasajerosTabla(){
+		$data = $this->Pasajero_model->getDatosPasajeros();
+		echo json_encode($data);
 		return;
 	}
 
@@ -99,5 +122,64 @@ class Pasajero extends CI_Controller {
 
 	}
 
+	// EDICION DE PASAJEROS
+	public function editarPasajeroForm($id_pasajero){
+		//form validation
+
+		$this->form_validation->set_rules('nombre','<b>Nombre</b>','trim|required');
+		$this->form_validation->set_rules('apellido','<b>Apellido</b>','trim|required');
+		$this->form_validation->set_rules('telefono','<b>Telefono</b>','trim|required');
+		$this->form_validation->set_rules('email','<b>Correo</b>','trim|required');
+		$this->form_validation->set_rules('acompa','<b>Acompañantes</b>','trim|required');
+
+		//arreglo con los datos
+
+		$servicios = array(
+			'transfer' => $this->input->post('transfer'),
+			'hospedaje' => $this->input->post('hospedaje'),
+			'tour' => $this->input->post('tour')
+		);
+
+		//la idea ahora es juntar los valores de los servicios como un unico string y ponerlos dentro de los datos del pasajero
+		$dato_servicio = implode(',',$servicios);
+
+		
+		$datos_fecha = array(
+			'id_fecha' => $this->Pasajero_model->getIdFecha($id_pasajero),
+			'fechallegada' => $this->input->post('fechallegada'),
+			'horallegada' => $this->input->post('horallegada'),
+			'fechasalida' => $this->input->post('fechasalida'),
+			'horasalida' => $this->input->post('horasalida')
+		);
+		//primero edita la fecha
+		$this->Fecha_model->EditarFecha($datos_fecha);		
+
+		$datos_pasajero = array(
+			'nombre' => $this->input->post('nombre'),
+			'apellido' => $this->input->post('apellido'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'acompa' => $this->input->post('acompa'),
+			'observacion' => $this->input->post('observacion'),
+			'servicios' => $dato_servicio,
+			'fecha_id' => $this->Pasajero_model->getIdFecha($id_pasajero)
+		);
+				
+		$this->Pasajero_model->EditarPasajero($datos_pasajero);
+		
+
+		redirect(site_url('pasajero'));
+
+	}
+
+	public function eliminarPasajero($id_pasajero){
+		$datos= array(
+			'id_pasajero' => $id_pasajero
+		);
+		$this->Pasajero_model->EliminarPasajero($datos);
+
+		redirect(site_url('pasajero'));
+		
+	}
 	
 }

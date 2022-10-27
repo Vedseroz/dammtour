@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
+            <h1 class="m-0">Hospedaje</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,44 +31,43 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Ingresar Transfer</h3>
+                <h3 class="card-title">Ingresar Hospedaje</h3>
                         
                 <br><hr>
                 
-                <?= form_open_multipart(site_url('Vehiculo/IngresarVehiculoForm'), 'class="form-horizontal" role="form"') ?>
+                <?= form_open_multipart(site_url('Hospedaje/IngresarHospedajeForm'), 'class="form-horizontal" role="form"') ?>
                   
 
                   <div class="marca">
-                    <label for="marca">Marca del Vehiculo:</label>
-                    <input type="text" name="marca" id="marca" value="<?= set_value('marca')?>">
+                    <label for="marca">Nombre del Hospedaje:</label>
+                    <input type="text" name="nombre_hospedaje" id="nombre_hospedaje" value="<?= set_value('nombre_hospedaje')?>">
                   </div>
 
                   <div class="modelo">
-                    <label for="modelo">Modelo del Vehiculo:</label>
-                    <input type="text" name="modelo" id="modelo" value="<?= set_value('modelo')?>">
+                    <label for="modelo">Direccion del Hospedaje:</label>
+                    <input type="text" name="direccion_hospedaje" id="direccion_hospedaje" value="<?= set_value('direccion_hospedaje')?>">
+                  </div>
+                  
+                  <div class="ciudad">
+                    <label for="ciudad">Ciudad:</label>
+                    <input type="text" name="ciudad" id="ciudad" value="<?= set_value('ciudad')?>">
                   </div>
 
-                  <div class="patente">
-                    <label for="patente">Patente del Vehiculo:</label>
-                    <input type="text" name="patente" id="marca" value="<?= set_value('patente')?>">
+                  <div class="comuna">
+                    <label for="comuna">Comuna:</label>
+                    <input type="text" name="comuna" id="comuna" value="<?= set_value('comuna')?>">
                   </div>
 
-                 <div class="tipovehiculo">
-                    <label for="tipovehiculo">Tipo de Vehiculo:</label>
-                    <select name="tipo" id="tipo" value="<?= set_value('tipo')?>">
-                        <option value=""></option>
-                        <option value="Sedan">Sedan</option>
-                        <option value="Van">Van</option>
-                        <option value="Hatch Back">Hatch Back</option>
-                        <option value="SUV">SUV</option>
-                    </select>
+                  <div class="pais">
+                    <label for="patente">Pais:</label>
+                    <input type="text" name="pais" id="pais" value="<?= set_value('pais')?>">
                   </div>
 
-
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Pasajeros Disponibles:</label>
-                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" value="<?= set_value('cant_pasajeros')?>">
+                  <div class="telefono">
+                    <label for="patente">Telefono del Hospedaje:</label>
+                    <input type="text" name="telefono_hospedaje" id="telefono_hospedaje" value="<?= set_value('telefono_hospedaje')?>">
                   </div>
+
 
 
                     <div class="clearfix form-actions center">
@@ -77,7 +76,7 @@
                         Ingresar
                       </button>
 
-                      <a href="<?php echo site_url('vehiculo')?>" class="btn btn-danger" type="reset">
+                      <a href="<?php echo site_url('hospedaje')?>" class="btn btn-danger" type="reset">
                         <i class="ace-icon fa fa-times bigger-110"></i>
                         Cancelar
                      </a>

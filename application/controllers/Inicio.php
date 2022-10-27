@@ -15,7 +15,6 @@ class Inicio extends CI_Controller {
 		//cargar los models. 
 		$this->load->model('Hospedaje_model');
 		$this->load->model('Fecha_model');
-		$this->load->model('Localidad_model');
 		$this->load->model('Pasajero_model');
 
 		 
@@ -41,9 +40,6 @@ class Inicio extends CI_Controller {
 	public function index(){	
 		$this->load->helper('form');
 
-		$this->data['paises'] = $this->Localidad_model->getpaises();
-		$this->data['localidad'] = $this->Localidad_model->getLocalidades();
-		
 		$this->data['vista'] = 'inicio';
 		$this->load->view('template',$this->data);
 	}

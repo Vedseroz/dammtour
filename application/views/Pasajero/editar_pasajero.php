@@ -1,4 +1,4 @@
-   <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
+ <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -31,60 +31,60 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Ingresar Pasajero</h3>
+                <h3 class="card-title">Editar Datos del Pasajero</h3>
                         
                 <br><hr>
                 
-                <?= form_open_multipart(site_url('Pasajero/IngresarPasajeroForm'), 'class="form-horizontal" role="form"') ?>
+                <?= form_open_multipart(site_url('Pasajero/editarPasajeroForm/'.$this->uri->segment(3)), 'class="form-horizontal" role="form" method="POST" ') ?>
                   <div class="nombre">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" value = "<?= set_value('nombre')?>">
+                    <input type="text" name="nombre" id="nombre" value = "<?= $pasajero[0]['nombre']?>">
                   </div>
 
                   <div class="apellido">
                     <label for="apellido">Apellidos:</label>
-                    <input type="text" name="apellido" id="apellido" value = "<?= set_value('apellido')?>">
+                    <input type="text" name="apellido" id="apellido" value= "<?= $pasajero[0]['apellido']?>">
                   </div>
 
                   <div class="telefono">
                     <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="telefono" value = "<?= set_value('telefono')?>">
+                    <input type="tel" name="telefono" id="telefono" value = "<?= $pasajero[0]['telefono']?>">
                   </div>
 
                   <div class="email">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value = "<?= set_value('email')?>">
+                    <input type="email" name="email" id="email" value = "<?= $pasajero[0]['email']?>">
                   </div>
 
                   <div class="acompa">
                     <label for="acompa">Acompañantes:</label>
-                    <input type="number" name="acompa" id="acompa" min = "0" max = "6" value = "<?= set_value('acompa')?>" >
+                    <input type="number" name="acompa" id="acompa" min = "0" max = "6" value = "<?= $pasajero[0]['acompa']?>" >
                   </div>
 
                   
                   <div class="fecha-llegada">
                     <label for="fechallegada">Fecha llegada:</label>
-                    <input type="date" name="fechallegada" id="fechallegada" value = "<?= set_value('fechallegada')?>">
+                    <input type="date" name="fechallegada" id="fechallegada" value = "<?= $fecha[0]['fechallegada']?>">
                   </div>
 
                   <div class="hora-llegada clockpicker" data-autoclose="true">
                     <label for="horallegada">Hora llegada:</label>
-                    <input type="time" name="horallegada" id="horallegada" value = "<?= set_value('horallegada')?>">
+                    <input type="time" name="horallegada" id="horallegada" value = "<?= $fecha[0]['horasalida']?>">
                   </div>
 
                   <div class="fecha-salida">
                     <label for="fechasalida">Fecha salida:</label>
-                    <input type="date" name="fechasalida" id="fechasalida" value = "<?= set_value('fechasalida')?>">
+                    <input type="date" name="fechasalida" id="fechasalida" value = "<?= $fecha[0]['fechasalida']?>">
                   </div>
 
                   <div class="hora-salida clockpicker" data-autoclose="true">
                     <label for="horasalida">Hora salida:</label>
-                    <input type="time" name="horasalida" id="horasalida" value = "<?= set_value('horasalida')?>">
+                    <input type="time" name="horasalida" id="horasalida" value = "<?= $fecha[0]['horasalida']?>">
                   </div>
 
                   <div class="observacion">
                     <label for="observacion">Observación:</label>
-                    <textarea name="observacion" id="observacion" rows="10" value = "<?= set_value('observacion')?>"></textarea>
+                    <textarea name="observacion" id="observacion" rows="10" value = "<?= $pasajero[0]['observacion']?>"></textarea>
                   </div>
 
                   <div class="servicios">
@@ -92,15 +92,15 @@
                     
                     <div class="servicio">
                       <div>
-                        <input type="checkbox" name="transfer" id="servicio" value="transfer">
+                        <input type="checkbox" name="transfer" id="servicio" value="Transfer">
                         <label for="servicio">Transfer</label>
                       </div>
                       <div>
-                        <input type="checkbox" name="hospedaje" id="servicio" value="hospedaje">
+                        <input type="checkbox" name="hospedaje" id="servicio" value="Hospedaje">
                         <label for="servicio">Hospedaje</label>
                       </div>
                       <div>
-                        <input type="checkbox" name="tour" id="servicio" value="tour">
+                        <input type="checkbox" name="tour" id="servicio" value="Tour">
                         <label for="servicio">Tour</label>
                       </div>
                     </div>

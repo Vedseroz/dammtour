@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
+            <h1 class="m-0">Chofer</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,48 +31,36 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Ingresar Transfer</h3>
+                <h3 class="card-title">Editar Chofer</h3>
                         
                 <br><hr>
-
-                <?php echo validation_errors(); ?>
                 
-                <?= form_open_multipart(site_url('Transfer/IngresarTransferForm'), 'class="form-horizontal" role="form"') ?>
+                <?= form_open_multipart(site_url('chofer/EditarChoferForm/').$this->uri->segment(3), 'class="form-horizontal" role="form"') ?>
                   <div class="nombre">
                     <label for="nombre">Nombre del Chofer:</label>
-                    <input type="text" name="nombre_chofer" id="nombre" value='<?= set_value('nombre_chofer')?>'>
+                    <input type="text" name="nombre_chofer" id="nombre" value="<?= $chofer[0]['nombre_chofer']?>" required placeholder="Nombre">
                   </div>
 
                   <div class="apellido">
                     <label for="apellido">Apellido del Chofer:</label>
-                    <input type="text" name="apellido_chofer" id="apellido" value='<?= set_value('nombre_chofer')?>'>
+                    <input type="text" name="apellido_chofer" id="apellido" value="<?= $chofer[0]['apellido_chofer']?>" required placeholder="Apellido">
                   </div>
 
-                  <div class="tipovehiculo">
-                    <label for="tipovehiculo">Tipo de Vehiculo:</label>
-                    <select name="tipo" id="tipo" value='<?= set_value('nombre_chofer')?>'>
-                        <option value="sedan">Sedan</option>
-                        <option value="van">Van</option>
-                        <option value="hatch">Hatch Back</option>
-                        <option value="suv">SUV</option>
-                    </select>
+                  <div class="RUT">
+                    <label for="RUT">RUT:</label>
+                    <input type="text" name="rut_chofer" id="rut_chofer" value="<?= $chofer[0]['rut_chofer']?>" required placeholder="ej. 12345678-9">
                   </div>
 
-                  <div class="modelo">
-                    <label for="modelo">Modelo del Vehiculo:</label>
-                    <input type="text" name="modelo" id="modelo">
+                  <div class="apellido">
+                    <label for="apellido">Telefono del Chofer:</label>
+                    <input type="text" name="telefono_chofer" id="telefono" value="<?= $chofer[0]['telefono_chofer'] ?>" required placeholder="ej. 932457681">
                   </div>
 
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Maletas:</label>
-                    <input type="number" name="cant_maletas" id="cant_maletas" min = "0" max = "6" >
+                  <div class="Direccion">
+                    <label for="Direccion">Direccion de Domicilio:</label>
+                    <input type="text" name="direccion_chofer" id="direccion_chofer" value="<?= $chofer[0]['direccion_chofer']?>" required placeholder="ej. Errazuriz #2756">
                   </div>
 
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Pasajeros Disponibles:</label>
-                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" >
-                  </div>
-                 
 
                     <div class="clearfix form-actions center">
                       <button class="btn btn-info" type="submit">
@@ -80,7 +68,7 @@
                         Ingresar
                       </button>
 
-                      <a href="<?php echo site_url('transfer')?>" class="btn btn-danger" type="reset">
+                      <a href="<?php echo site_url('chofer')?>" class="btn btn-danger" type="reset">
                         <i class="ace-icon fa fa-times bigger-110"></i>
                         Cancelar
                      </a>

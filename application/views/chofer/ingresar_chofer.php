@@ -38,18 +38,29 @@
                 <?= form_open_multipart(site_url('chofer/IngresarChoferForm'), 'class="form-horizontal" role="form"') ?>
                   <div class="nombre">
                     <label for="nombre">Nombre del Chofer:</label>
-                    <input type="text" name="nombre_chofer" id="nombre" value="<?= set_value('nombre_chofer')?>" required>
+                    <input type="text" name="nombre_chofer" id="nombre" value="<?= set_value('nombre_chofer')?>" required placeholder="Nombre">
                   </div>
 
                   <div class="apellido">
                     <label for="apellido">Apellido del Chofer:</label>
-                    <input type="text" name="apellido_chofer" id="apellido" value="<?= set_value('apellido_chofer')?>" required>
+                    <input type="text" name="apellido_chofer" id="apellido" value="<?= set_value('apellido_chofer')?>" required placeholder="Apellido">
                   </div>
 
                   <div class="RUT">
                     <label for="RUT">RUT:</label>
-                    <input type="text" name="rut" id="rut" required>
+                    <input type="text" name="rut_chofer" id="rut_chofer" value="<?= set_value('rut_chofer')?>" required placeholder="ej. 12345678-9">
                   </div>
+
+                  <div class="apellido">
+                    <label for="apellido">Telefono del Chofer:</label>
+                    <input type="text" name="telefono_chofer" id="telefono" value="<?= set_value('telefono_chofer')?>" required placeholder="ej. 932457681">
+                  </div>
+
+                  <div class="Direccion">
+                    <label for="Direccion">Direccion de Domicilio:</label>
+                    <input type="text" name="direccion_chofer" id="direccion_chofer" value="<?= set_value('direccion_chofer')?>" required placeholder="ej. Errazuriz #2756">
+                  </div>
+
 
                     <div class="clearfix form-actions center">
                       <button class="btn btn-info" type="submit">
@@ -57,7 +68,7 @@
                         Ingresar
                       </button>
 
-                      <a href="<?php echo site_url('transfer')?>" class="btn btn-danger" type="reset">
+                      <a href="<?php echo site_url('chofer')?>" class="btn btn-danger" type="reset">
                         <i class="ace-icon fa fa-times bigger-110"></i>
                         Cancelar
                      </a>

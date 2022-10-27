@@ -41,19 +41,19 @@
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('transfer');?>" class="nav-link">
-                  <i class="fa fa-car nav-icon"></i>
+                  <i class="fa fa-taxi nav-icon"></i>
                   <p>Transfer</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('chofer');?>" class="nav-link">
-                  <i class="fa fa-car nav-icon"></i>
+                  <i class="fa fa-id-card nav-icon"></i>
                   <p>Chofer</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('vehiculo');?>" class="nav-link">
-                  <i class="fa fa-car nav-icon"></i>
+                  <i class="fa fa-car nav-icon"></i></i>
                   <p>Vehiculos</p>
                 </a>
               </li>
@@ -71,7 +71,7 @@
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa fa-credit-card nav-icon"></i>
+                  <i class="fa fa-dollar-sign nav-icon"></i>
                   <p>Costo</p>
                 </a>
               </li>

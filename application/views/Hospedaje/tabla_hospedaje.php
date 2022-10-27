@@ -18,91 +18,67 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Pasajero/getDatosPasajerosTabla'); ?>",
+                "url": "<?= site_url('Hospedaje/getDatosHospedaje'); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "title":'Nombre',
-                    "data":'nombre',
+                    "title":'Nombre Hospedaje',
+                    "data":'nombre_hospedaje',
                     "targets":0,
                     "searchable":true,
                     "visible":true
                 },
                 {
-                    "title": 'Apellido',
-                    "data": 'apellido',
+                    "title": 'Direccion Hospedaje',
+                    "data": 'direccion_hospedaje',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Telefono',
-                    "data": 'telefono',
+                    "title": 'Ciudad',
+                    "data": 'ciudad',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
                 },
                 {
-                    "title": 'Servicios',
-                    "data": 'servicios',
+                    "title": 'Comuna',
+                    "data": 'comuna',
                     "targets": 3,
-                    "visible":true
-
+                    "searchable": true,
+                    "visible":true               
                 },
                 {
-                    "title": 'Fecha de Llegada',
-                    "data": 'fechallegada',
-                    "searchable": false,
+                    "title": 'Pais',
+                    "data": 'pais',
                     "targets": 4,
-                    "visible": true,
-                    "render": function ( data, type, row ) {
-                        if(data == null) {
-                            return 'Sin información'
-                        }
-                        //else if(row.etapa == 1){}
-                        return data.split("-").reverse().join("-");
-                        }
-                }, 
-                {
-                "title": 'Hora de Llegada',
-                "data": 'horallegada',
-                "targets": 5,
-                "visible":true
+                    "searchable": true,
+                    "visible":true               
                 },
                 {
-                "title": 'Fecha de Salida',
-                "data": 'fechasalida',
-                "searchable": false,
-                "targets": 6,
-                "visible": true,
-                "render": function ( data, type, row ) {
-                    if(data == null) {
-                        return 'Sin información'
-                    }
-                    //else if(row.etapa == 1){}
-                    return data.split("-").reverse().join("-");
-                    }
-                }, 
-                {
-                "title": 'Hora de Salida',
-                "data": 'horasalida',
-                "targets": 7,
-                "visible":true
+                    "title": 'Telefono',
+                    "data": 'telefono_hospedaje',
+                    "targets": 5,
+                    "searchable": true,
+                    "visible":true               
                 },
                 {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 8,
+                "targets": 6,
                 "searchable": false,
                 "orderable": false,
-                "render": function(data,type,row,meta){
+                "render": function(data,type,row){
                     
-                    var link = '<?php echo site_url('Transfer/AsignarTransfer'); ?>/' + row.id_pasajero;
-                    return '<a class="btn btn-dark" href="'+link+'" role="button"> Asignar Transfer </a>'
+                    var link = '<?php echo site_url('Chofer/editarChofer'); ?>/' + row.id_chofer;
+                    
+                    return '<a class="btn btn-primary rounded-pill" href="'+link+'"><i class="fa fa-edit"></i></a>'
+                    + '<a onclick="return confirm_modal('+row.id_chofer+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
 
                     }
-                },  
+                },
 
             ],
             "order":[[0,"desc"]],
@@ -111,6 +87,16 @@
             }
         })
     });
+
+    function confirm_modal(id){
+        console.log(id);
+        var url='<?php echo site_url('Chofer/eliminarChofer/')?>';
+        var new_url = url+id;
+        //$("url-delete").attr("href",new_url);
+        jQuery('#exampleModal').modal('show',{backdrop : 'static'});
+        var link = document.getElementById('url-delete');
+        link.href = new_url;
+    }
     
 </script>
 
@@ -279,3 +265,26 @@
     
     </div>
 </div> 
+
+<!--Modal-->
+<div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alerta:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
+        <h4>¿Está seguro que quiere eliminar a este chofer?</h4>
+      </div>
+
+      <!--Este es el pie del modal aqui puedes agregar mas botones-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a id="url-delete" name="url-delete" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
+      </div>
+    </div>
+  </div>
