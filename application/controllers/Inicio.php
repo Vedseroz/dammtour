@@ -14,11 +14,7 @@ class Inicio extends CI_Controller {
 
 		//cargar los models. 
 		$this->load->model('Hospedaje_model');
-		$this->load->model('Fecha_model');
 		$this->load->model('Pasajero_model');
-
-		 
-
 		 
 	}
 

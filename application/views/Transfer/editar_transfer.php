@@ -1,4 +1,4 @@
-   <!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
+<!-- HEADER DE LA PAGINA , CAMBIAR SOLO PARAMETROS DEL BREADCRUMB. -->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
+            <h1 class="m-0">Editar Evento</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,34 +31,35 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Ingresar Pasajero</h3>
+                <h3 class="card-title">Editar Evento</h3>
                         
                 <br><hr>
                 
-                <?= form_open_multipart(site_url('Pasajero/IngresarPasajeroForm'), 'class="form-horizontal" role="form"') ?>
-                  <div class="nombre">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" value = "<?= set_value('nombre')?>">
+                <?= form_open_multipart(site_url('Transfer/EditarEventoForm/'.$this->uri->segment(3)), 'class="form-horizontal" role="form"') ?>                
+
+                  <div class="fecha">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" value = "<?= $voucher[0]['fecha']?>">
                   </div>
 
-                  <div class="apellido">
-                    <label for="apellido">Apellidos:</label>
-                    <input type="text" name="apellido" id="apellido" value = "<?= set_value('apellido')?>">
+                  <div class="origen">
+                    <label for="origen">Origen:</label>
+                    <input type="text" name="origen" id="origen" value = "<?= $voucher[0]['origen']?>">
                   </div>
 
-                  <div class="telefono">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="telefono" value = "<?= set_value('telefono')?>">
+                  <div class="hora_inicio">
+                    <label for="hora_inicio">Hora de Inicio:</label>
+                    <input type="time" name="hora_inicio" id="hora_inicio" value = "<?= $voucher[0]['hora_inicio']?>">
                   </div>
 
-                  <div class="email">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value = "<?= set_value('email')?>">
+                  <div class="destino">
+                    <label for="destino">Destino:</label>
+                    <input type="text" name="destino" id="destino" value = "<?= $voucher[0]['destino']?>">
                   </div>
 
-                  <div class="acompa">
-                    <label for="acompa">Acompañantes:</label>
-                    <input type="number" name="acompa" id="acompa" min = "0" max = "6" value = "<?= set_value('acompa')?>" >
+                  <div class="hora_finalizacion">
+                    <label for="hora_finalizacion">Hora de Finalizacion:</label>
+                    <input type="time" name="hora_finalizacion" id="hora_finalizacion" value = "<?= $voucher[0]['hora_finalizacion']?>" >
                   </div>
 
                   <!-- 
@@ -82,36 +83,18 @@
                     <input type="time" name="horasalida" id="horasalida" value = "<?= set_value('horasalida')?>">
                   </div> -->
 
-                  <div class="observacion">
-                    <label for="observacion">Observación:</label>
-                    <textarea name="observacion" id="observacion" rows="10" value = "<?= set_value('observacion')?>"></textarea>
+                  <div class="detalles">
+                    <label for="detalles">Detalles Adicionales:</label>
+                    <textarea name="detalles" id="detalles" rows="10" ><?= $voucher[0]['detalles']?></textarea>
                   </div>
-
-                  <div class="servicios">
-                    <label><b>Servicios:</b></label>
-                    
-                    <div class="servicio">
-                      <div>
-                        <input type="checkbox" name="transfer" id="servicio" value="transfer">
-                        <label for="servicio">Transfer</label>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="hospedaje" id="servicio" value="hospedaje">
-                        <label for="servicio">Hospedaje</label>
-                      </div>
-                      <div>
-                        <input type="checkbox" name="tour" id="servicio" value="tour">
-                        <label for="servicio">Tour</label>
-                      </div>
-                    </div>
 
                     <div class="clearfix form-actions center">
                       <button class="btn btn-info" type="submit">
                         <i class="ace-icon fa fa-check bigger-110"></i>
-                        Ingresar
+                        Agregar
                       </button>
 
-                      <a href="<?php echo site_url('pasajero')?>" class="btn btn-danger" type="reset">
+                      <a href="<?php echo site_url('Transfer/agregarEvento/'.$this->uri->segment(3))?>" class="btn btn-danger" type="reset">
                         <i class="ace-icon fa fa-times bigger-110"></i>
                         Cancelar
                      </a>

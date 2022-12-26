@@ -51,49 +51,9 @@
 
                 },
                 {
-                    "title": 'Fecha de Llegada',
-                    "data": 'fechallegada',
-                    "searchable": false,
-                    "targets": 4,
-                    "visible": true,
-                    "render": function ( data, type, row ) {
-                        if(data == null) {
-                            return 'Sin información'
-                        }
-                        //else if(row.etapa == 1){}
-                        return data.split("-").reverse().join("-");
-                        }
-                }, 
-                {
-                "title": 'Hora de Llegada',
-                "data": 'horallegada',
-                "targets": 5,
-                "visible":true
-                },
-                {
-                "title": 'Fecha de Salida',
-                "data": 'fechasalida',
-                "searchable": false,
-                "targets": 6,
-                "visible": true,
-                "render": function ( data, type, row ) {
-                    if(data == null) {
-                        return 'Sin información'
-                    }
-                    //else if(row.etapa == 1){}
-                    return data.split("-").reverse().join("-");
-                    }
-                }, 
-                {
-                "title": 'Hora de Salida',
-                "data": 'horasalida',
-                "targets": 7,
-                "visible":true
-                },
-                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 8,
+                "targets": 4,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row,meta){

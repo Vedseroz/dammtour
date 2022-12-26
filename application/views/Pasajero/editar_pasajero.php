@@ -61,7 +61,7 @@
                     <input type="number" name="acompa" id="acompa" min = "0" max = "6" value = "<?= $pasajero[0]['acompa']?>" >
                   </div>
 
-                  
+                  <!--
                   <div class="fecha-llegada">
                     <label for="fechallegada">Fecha llegada:</label>
                     <input type="date" name="fechallegada" id="fechallegada" value = "<?= $fecha[0]['fechallegada']?>">
@@ -85,7 +85,7 @@
                   <div class="observacion">
                     <label for="observacion">Observación:</label>
                     <textarea name="observacion" id="observacion" rows="10" value = "<?= $pasajero[0]['observacion']?>"></textarea>
-                  </div>
+                  </div> -->
 
                   <div class="servicios">
                     <label><b>Servicios:</b></label>

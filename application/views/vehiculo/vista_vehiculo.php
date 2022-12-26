@@ -42,6 +42,8 @@
                     <br>
                     <br>
                     <?php
+
+                      
                       // en este sector se carga la tabla con todos los pasajeros. 
                       $this->load->view('vehiculo/tabla_vehiculo');
                     ?>

@@ -42,19 +42,23 @@ class Pasajero_model extends CI_model {
             array('db'=>'datos_pasajeros.nombre','dt'=>'nombre'),
             array('db'=>'datos_pasajeros.apellido','dt'=>'apellido'),
             array('db'=>'datos_pasajeros.telefono','dt'=>'telefono'),
-            array('db'=>'datos_pasajeros.fecha_id','dt'=>'fecha_id'),
+            array('db'=>'datos_pasajeros.email','dt'=>'email'),
             array('db'=>'datos_pasajeros.servicios','dt'=>'servicios'),
-            array('db'=>'datos_pasajeros.fechallegada','dt'=>'fechallegada'),
-            array('db'=>'datos_pasajeros.horallegada','dt'=>'horallegada'),
-            array('db'=>'datos_pasajeros.fechasalida','dt'=>'fechasalida'),
-            array('db'=>'datos_pasajeros.horasalida','dt'=>'horasalida')
+            array('db'=>'datos_pasajeros.acompa','dt'=>'acompa'),
+
         );
         $data = $this->data_tables->complex($_POST,$table,$primaryKey,$columns);
         return $data; 
     }
     
-    public function getPasajeroById($id_pasajero){
+    public function getPasajeroById($id_pasajero){ //retorna todos los datos del pasajero
         $query = $this->db->query('SELECT * FROM pasajero WHERE id_pasajero = '.$id_pasajero);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function ComprobarPasajero($id_pasajero){
+        $query = $this->db->query('SELECT COUNT(*) FROM pasajero WHERE id_pasajero = '.$id_pasajero);
         $data = $query->result_array();
         return $data;
     }

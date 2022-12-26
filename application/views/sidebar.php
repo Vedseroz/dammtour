@@ -34,15 +34,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('pasajero');?>" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Pasajero</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?php echo site_url('transfer');?>" class="nav-link">
                   <i class="fa fa-taxi nav-icon"></i>
                   <p>Transfer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('pasajero');?>" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Pasajero</p>
                 </a>
               </li>
               <li class="nav-item">

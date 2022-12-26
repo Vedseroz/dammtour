@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Inicio</h1>
+            <h1 class="m-0">Transfer</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,67 +31,54 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Asignar Transfer</h3>
-                        
-                <br><hr>
-
-                <?php echo validation_errors(); ?>
-                
-                <?= form_open_multipart(site_url('Transfer/IngresarTransferForm'), 'class="form-horizontal" role="form"') ?>
-                  <div class="nombre">
-                    <label for="nombre">Nombre del Chofer:</label>
-                    <input type="text" name="nombre_chofer" id="nombre" value='<?= set_value('nombre_chofer')?>'>
-                  </div>
-
-                  <div class="apellido">
-                    <label for="apellido">Apellido del Chofer:</label>
-                    <input type="text" name="apellido_chofer" id="apellido" value='<?= set_value('nombre_chofer')?>'>
-                  </div>
-
-                  <div class="tipovehiculo">
-                    <label for="tipovehiculo">Tipo de Vehiculo:</label>
-                    <select name="tipo" id="tipo" value='<?= set_value('nombre_chofer')?>'>
-                        <option value="sedan">Sedan</option>
-                        <option value="van">Van</option>
-                        <option value="hatch">Hatch Back</option>
-                        <option value="suv">SUV</option>
-                    </select>
-                  </div>
-
-                  <div class="modelo">
-                    <label for="modelo">Modelo del Vehiculo:</label>
-                    <input type="text" name="modelo" id="modelo">
-                  </div>
-
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Maletas:</label>
-                    <input type="number" name="cant_maletas" id="cant_maletas" min = "0" max = "6" >
-                  </div>
-
-                  <div class="cant_maletas">
-                    <label for="acompa">Cantidad de Pasajeros Disponibles:</label>
-                    <input type="number" name="cant_pasajeros" id="cant_pasajeros" min = "0" max = "6" >
-                  </div>
-                 
-
-                    <div class="clearfix form-actions center">
-                      <button class="btn btn-info" type="submit">
-                        <i class="ace-icon fa fa-check bigger-110"></i>
-                        Ingresar
-                      </button>
-
-                      <a href="<?php echo site_url('transfer')?>" class="btn btn-danger" type="reset">
-                        <i class="ace-icon fa fa-times bigger-110"></i>
-                        Cancelar
-                     </a>
+                <h3 class="card-title">Asignar Transfer</h3>   
+                  <br>
+                  <hr>
+                  <!--Informacion del pasajero-->
+                  <div class="container">
+                    <div class="row">
+                     <div class="col-lg-3">
+                        <label abel for="nombre">Nombre del Pasajero: </label>
+                        <?php echo $pasajero[0]['nombre']; ?>
+                      </div>
+                      <div class="col-lg-4">
+                        <label for="apellido">Apellido del Pasajero: </label>
+                        <?php echo $pasajero[0]['apellido']; ?>
+                      </div>
+                      <div class="col-lg-3">
+                        <label for="telefono">Telefono del Pasajero: </label>
+                        <?php echo $pasajero[0]['telefono']; ?>
+                      </div>
+                      </div>
                     </div>
-                    
-                    <!--fin del formulario-->
-                  </form>
+                    <div class="row">
+                      <div class="col">
+                        <label for="correo">Correo del Pasajero: </label>
+                        <?php echo $pasajero[0]['email']; ?>
+                      </div>
+                      <div class="col-lg">
+                        <label for="correo">Cantidad de Pasajeros: </label>
+                        <?php echo $pasajero[0]['acompa']; ?>
+                      </div>
+                      <div class="col-lg">
+                        <label for="servicios">Servicios solicitados: </label>
+                        <?php echo $pasajero[0]['servicios']; ?>
+                      </div>
+                  </div>
+
+                  <div class ='row'>
+                    <div class = 'col'>
+                       <a href="<?php echo site_url('Transfer/AgregarEvento/'.$this->uri->segment(3))?>" class="btn btn-dark">Agregar Eventos</a>
+                    </div>
+                    <div class = 'col'>
+                    <a type="button" class="btn btn-success" data-toggle="modal" data-target="#confirm" >Enviar Voucher</a>
+                    </div>
                   </div>
                 
-                            
-            
+                <br>
+                <?php $this->load->view('Transfer/tabla_voucher');?>
+                
+              <br>
 
               
               </div>
@@ -110,6 +97,33 @@
     <!-- /.content -->
   </div>
  
+  <script>
+   jQuery('#confirm').modal('show',{backdrop : 'static'});
+</script>
+<!--Modal-->
+<div class="modal fade" id="confirm"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alerta:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
+        <h4>¿Desea enviar el voucher al cliente por el correo: <?= $pasajero[0]['email']?>?</h4>
+      </div>
 
+      <!--Este es el pie del modal aqui puedes agregar mas botones-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <a id="url-delete" name="url-delete" href="#" class="btn btn-success btn-sm"><i class="fa fa-check">&nbsp;</i>Enviar Voucher</a>
+      </div>
+    </div>
+  </div>
   
+
+
 </div>
+

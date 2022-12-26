@@ -28,6 +28,9 @@
               <div class="card-body">
                 <h3 class="card-title">Calendario de eventos</h3>
 
+                      
+
+
                 <?php $this->load->view('calendario/html.php',$this->data); //llama a la vista calendario.?> 
 
                 
