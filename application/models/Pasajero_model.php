@@ -85,4 +85,31 @@ class Pasajero_model extends CI_model {
         $this->db->delete('pasajero',array('id_pasajero' => $data['id_pasajero']));
     }
 
+    public function InsertarCosto($data){
+        $this->db->get('pasajero');
+        $this->db->where('pasajero_id',$data['pasajero_id']);
+        $this->db->update('pasajero',$data);
+    }
+
+    //EVENTOS-----------------------------------------------------------------------------------------------------------------------------------------------
+
+    public function AgregarEventoTransfer($data){
+        $this->db->insert('pasajero_transfer',$data);
+    }
+
+    public function cambiarEstadoPasajero($data){
+        $this->db->get('pasajero');
+        $this->db->where('pasajero_id',$data['pasajero_id']);
+        $this->db->update('pasajero',$data);
+    }
+
+    public function getNombreById($pasajero_id){ //devuelve el nombre del pasajero
+        $query = $this->db->query('SELECT post_content FROM datos_pasajeros WHERE ID = '.$pasajero_id);
+        $data = $query->result_array();
+        $data[0]['post_content'] = preg_split('/\r\n|\r|\n/', $data[0]['post_content']);
+        $nombre = $data[0]['post_content'][0];
+        return $nombre;
+    }
+
+
 }

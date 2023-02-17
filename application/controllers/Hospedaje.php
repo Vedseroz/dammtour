@@ -40,69 +40,63 @@ class Hospedaje extends CI_Controller{
 		$this->load->view('template',$this->data);
 	}
 
-    public function IngresarHospedajeForm(){
+    public function IngresarHospedajeForm($pasajero_id){
 		//form validation
 
-		$this->form_validation->set_rules('nombre_hospedaje','<b>Nombre del Hospedaje</b>','trim|required');
-		$this->form_validation->set_rules('direccion_hospedaje','<b>Direccion del Hospedaje</b>','trim|required');
-		$this->form_validation->set_rules('ciudad','<b>Ciudad</b>','trim|required');
-        $this->form_validation->set_rules('comuna','<b>Comuna</b>','trim|required');
-		$this->form_validation->set_rules('pais','<b>Pais</b>','trim|required');
-        $this->form_validation->set_rules('telefono_hospedaje','<b>Telefono del Hospedaje</b>','trim|required');
+		//form validation
+		$this->form_validation->set_rules("fechallegada2","<b>Fecha de Llegada</b>","required");
+		$this->form_validation->set_rules('horallegada2','<b>Hora de Llegada</b>','trim|required');
+		$this->form_validation->set_rules("fechasalida2","<b>Fecha de Salida</b>","required");
+		$this->form_validation->set_rules('horasalida2','<b>Hora de Salida</b>','trim|required');
+		$this->form_validation->set_rules('pais1','<b>Pais</b>','trim|required');
+		$this->form_validation->set_rules('ciudad1','<b>Ciudad</b>','trim|required');
+		$this->form_validation->set_rules('posada','<b>Posada</b>','trim|required');
+
+
+		//primero insertamos los datos asociados al hospedaje en especifico, la cantidad de ninos, adultos y maletas, en conjunto de que despues se asociara los datos 
+		//del chofer y del vehiculo.
+
+		$posada = $this->input->post('posada');
+
+		$id_hospedaje = $this->Hospedaje_model->getIdHospedaje($posada); // obtenemos el id para ponerlo en la tabla de pasajero hospedaje
+		$hospedaje_id = $id_hospedaje[0]['id_hospedaje'];
 	
 
-		$datos_hospedaje = array(
-			'nombre_hospedaje' => $this->input->post('nombre_hospedaje'),
-			'direccion_hospedaje' => $this->input->post('direccion_hospedaje'),
-			'ciudad' => strtoupper($this->input->post('ciudad')),
-			'comuna' => strtoupper($this->input->post('comuna')),
-			'pais' => strtoupper($this->input->post('pais')),
-            'telefono_hospedaje' => $this->input->post('telefono_hospedaje')
+		$datos_evento = array(   //captura de todos los datos del formulario
+			'fechallegada' => $this->input->post('fechallegada2'),
+			'horallegada' => $this->input->post('horallegada2'),
+			'fechasalida' => $this->input->post('fechasalida2'),
+			'horasalida' => $this->input->post('horasalida2'),
+			'pasajero_id' => $pasajero_id,
+			'hospedaje_id' => $hospedaje_id
 		);
-				
-		$this->Hospedaje_model->InsertarHospedaje($datos_hospedaje);
-		
 
-		redirect(site_url('hospedaje'));
+		$this->Hospedaje_model->AgregarEventoHospedaje($datos_evento);
 
-	}
+		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
-	public function EditarVehiculoForm($id_vehiculo){
-
-		$this->form_validation->set_rules('marca','<b>Marca</b>','trim|required');
-		$this->form_validation->set_rules('modelo','<b>Modelo</b>','trim|required');
-		$this->form_validation->set_rules('tipo','<b>Tipo de Vehiculo</b>','trim|required');
-		$this->form_validation->set_rules('patente','<b>Patente</b>','trim|required');
-
-		$datos_vehiculo = array(
-			'id_vehiculo' => $id_vehiculo,
-			'marca' => $this->input->post('marca'),
-			'modelo' => $this->input->post('modelo'),
-			'tipo' => $this->input->post('tipo'),
-			'patente' => $this->input->post('patente'),
-			'cant_pasajeros' => $this->input->post('cant_pasajeros'),
-		);
-				
-		$this->Vehiculo_model->EditarVehiculo($datos_vehiculo);
-
-		redirect(site_url('vehiculo'));
-
-	}
-
-	public function eliminarVehiculo($id_vehiculo){  //con esta funcion se llama a la base de datos para que elimine el dato que llega desde la columna de la tabla de la pagina. 
-		$datos= array(
-			'id_vehiculo' => $id_vehiculo
-		);
-		$this->Vehiculo_model->EliminarVehiculo($datos);
-
-		redirect(site_url('vehiculo'));
-		
 	}
 
     public function getDatosHospedaje(){
 		$data = $this->Hospedaje_model->datatable();
 		echo json_encode($data);
 		return;
+	}
+
+	public function getDatosHospedajeById($pasajero_id){
+		$aux = $this->Hospedaje_model->getDatosHospedajeById($pasajero_id);
+		$hospedaje['draw'] = 0;
+		$hospedaje['recordsTotal'] = count($aux);
+		$hospedaje['recordsFiltered'] = count($aux);
+		$hospedaje['data'] = $aux;
+		echo json_encode($hospedaje);
+	}
+
+	public function getHospedajePorCiudad($ciudad){
+		$data = $this->Hospedaje_model->getHospedajePorCiudad($ciudad);
+		$data = json_encode($data);
+        echo $data;
+        return;
 	}
 
 	

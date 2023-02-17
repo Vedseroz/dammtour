@@ -278,12 +278,12 @@ input[type=text]:placeholder {
 
     <!-- Icon -->
     <div class="fadeIn first">
-      
+    <img src="LOGO.png">
     </div>
 
     <!-- Login Form -->
     <br>
-    <h4 class="blue" id="id-company-text">Dammtour Sigetur</h4>
+    <h4 class="blue" id="id-company-text"></h4>
 
     <?php echo form_open("auth/login");?>
       <!--Nombre de usuario-->
@@ -294,6 +294,10 @@ input[type=text]:placeholder {
       <?php echo form_input($password);?>
       <!--boton de submit-->
       <input type="submit" class="fadeIn fourth" value="Iniciar Sesión">
+
+      <?php if(!empty($message)): ?>
+      <?= $message; ?>
+			<?php endif; ?>
       <?php echo form_close();?>
 
     <!-- Remind Passowrd -->

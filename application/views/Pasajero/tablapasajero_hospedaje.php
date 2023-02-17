@@ -14,119 +14,88 @@
 
 <script>
     $(document).ready(function(){
-        var myTable = $('#dynamic-table')
+        var myTable = $('#dynamic-table2')
         //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
         .DataTable({
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Pasajero/getDatosPasajerosTabla'); ?>",
+                "url": "<?= site_url('Hospedaje/getDatosHospedajeById/'.$this->uri->segment(3)); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "title":'ID',
                     "data":'pasajero_id',
                     "targets":0,
                     "searchable":true,
-                    "visible":true
+                    "render": function (data,type,row,meta){
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
                 },
                 {
-                    "title": 'Nombre',
-                    "data": 'nombre',
+                    "title": 'Hospedaje',
+                    "data": 'nombre_hospedaje',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Telefono',
-                    "data": 'telefono',
+                    "title": 'Ciudad',
+                    "data": 'ciudad',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
                 },
                 {
-                    "title": 'Correo',
-                    "data": 'email',
+                    "title": 'Pais',
+                    "data": 'pais',
                     "targets": 3,
                     "visible":true
 
                 },
                 {
-                    "title": 'Fecha de Inicio',
-                    "data": 'fecha_inicio',
+                    "title": 'Fecha de Llegada',
+                    "data": 'fechallegada',
                     "targets": 4,
                     "visible":true
 
                 },
                 {
-                    "title": 'Hora',
-                    "data": 'hora_inicio',
+                    "title": 'Hora de Llegada',
+                    "data": 'horallegada',
                     "targets": 5,
                     "visible":true
 
                 },
                 {
-                    "title": 'Adultos',
-                    "data": 'cant_adultos',
+                    "title": 'Fecha de Salida',
+                    "data": 'fechasalida',
                     "targets": 6,
                     "visible":true
 
                 },
                 {
-                    "title": 'Niños',
-                    "data": 'cant_ninos',
+                    "title": 'Hora de Salida',
+                    "data": 'horasalida',
                     "targets": 7,
                     "visible":true
 
                 },
                 {
-                    "title": 'Destino',
-                    "data": 'destino',
-                    "targets": 8,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Servicios',
-                    "data": 'servicios',
-                    "targets": 9,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Estado',
-                    "data": 'estado',
-                    "targets": 10,
-                    "visible":true,
-                    "render" : function(data,type,row){
-                        if(row.estado == '0'){
-                            return '<span class="label label-info">'+ 'Registrado' +'</span>';
-                        }
-                        if(row.estado == '1'){
-                            return '<span class="label label-success">'+'En proceso...'+'</span>';
-                        }
-                    }
-
-                },
-                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 11,
+                "targets": 8,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){
                     
-                    var link = '<?php echo site_url('Pasajero/editarPasajero'); ?>/' + row.pasajero_id;
-                    
-                    return '<a class="btn btn-primary rounded-pill" href="'+link+'"><i class="fa fa-edit"></i></a>'
-                    + '<a onclick="return confirm_modal('+row.id_pasajero+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
+                    return '<a onclick="return confirm_modal('+row.id_pasajero+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
 
                     }
                 },
 
             ],
-            "order":[[0,"desc"]],
+            "order":[[0,"asc"]],
             "language": {
             "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
             }
@@ -159,7 +128,7 @@
         <!-- div.dataTables_borderWrap -->
 
         <div>
-            <table id="dynamic-table" class="table table-striped table-bordered table-hover"></table>
+            <table id="dynamic-table2" class="table table-striped table-bordered table-hover"></table>
         </div>
     
     </div>
@@ -187,6 +156,3 @@
       </div>
     </div>
   </div>
-
-
-  

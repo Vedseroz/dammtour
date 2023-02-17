@@ -36,22 +36,15 @@
                         
                 <br><hr>
 
-                <ul>
-                    <li>
-                    <a href="<?php echo site_url('pasajero/IngresarPasajero')?>" class="btn btn-dark"><p>Agregar Pasajero</p><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <!--<a href="<?php echo site_url('pasajero/IngresarPasajero')?>" class="btn btn-dark"><p>Agregar Pasajero</p><i class="fa fa-plus" aria-hidden="true"></i></a>-->
 
-                    <br>
                     <br>
                     <?php
                       // en este sector se carga la tabla con todos los pasajeros. 
                       $this->load->view('Pasajero/tablapasajeros');
                     ?>
 
-                    </li>
-                </ul>
-            
-
-              
+             
             </div>
             </div><!-- /.card -->
           </div>

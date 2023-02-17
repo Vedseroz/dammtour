@@ -2,18 +2,15 @@
     <!-- Brand Logo -->
     <a href="<?php site_url('inicio')?>" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Dammtour</span>
+      <span class="brand-text font-weight-light center"><img src="../assets/img/LOGO.png" width="90%" height="10%"></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="" class="img-circle elevation-2" alt="User Image">
-        </div>
         <div class="info">
-          <a href="#" class="d-block">Usuario</a>
+          <a href="#" class="d-block">Usuario: <?= $_SESSION['identity'];?> </a>
         </div>
       </div>
 
@@ -34,15 +31,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('transfer');?>" class="nav-link">
-                  <i class="fa fa-taxi nav-icon"></i>
-                  <p>Transfer</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?php echo site_url('pasajero');?>" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Pasajero</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('transfer');?>" class="nav-link">
+                  <i class="fa fa-taxi nav-icon"></i>
+                  <p>Transfer</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -70,7 +67,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo site_url('costo');?>" class="nav-link">
                   <i class="fa fa-dollar-sign nav-icon"></i>
                   <p>Costo</p>
                 </a>

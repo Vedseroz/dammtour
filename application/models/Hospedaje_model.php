@@ -7,24 +7,41 @@ class Hospedaje_model extends CI_model {
         parent::__construct($table);
     }
 
-    public function datatable(){
-        $table = 'hospedaje';
-        $primarykey = 'hospedaje.id_pasajero';
-        $columns = array(
-            array('db' => 'hospedaje.id_hospedaje' , 'dt'=>'id_hospedaje' ),
-            array('db' => 'hospedaje.nombre_hospedaje' , 'dt'=>'nombre_hospedaje' ),
-            array('db' => 'hospedaje.direccion_hospedaje' , 'dt'=>'direccion_hospedaje' ),
-            array('db' => 'hospedaje.ciudad' , 'dt'=>'ciudad' ),
-            array('db' => 'hospedaje.comuna' , 'dt'=>'comuna' ),
-            array('db' => 'hospedaje.pais' , 'dt'=>'pais' ),
-            array('db' => 'hospedaje.telefono_hospedaje' , 'dt'=>'telefono_hospedaje' ) 
-        );
-        $data = $this->data_tables->complex($_POST,$table,$primarykey,$columns);
+
+    public function getNombreHospedaje($hospedaje_id){
+        $query = $this->db->query('SELECT nombre_hospedaje FROM hospedaje WHERE id_hospedaje =.'.$hospedaje_id);
+        $data = $query->result_array();
         return $data;
     }
 
-    public function InsertarHospedaje($data){
-        $this->db->insert('hospedaje',$data);
+    public function getAllHospedajes(){
+        $query = $this->db->query('SELECT * FROM datos_hospedaje');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getHospedajePorCiudad($ciudad){
+        $ciudad = urldecode($ciudad);
+        $query = $this->db->query('SELECT nombre_hospedaje FROM hospedaje_localidad WHERE ciudad = '.'"'.$ciudad.'"');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getIdHospedaje($posada){
+        $query = $this->db->query("SELECT id_hospedaje FROM hospedaje_localidad WHERE nombre_hospedaje = '".$posada."';");
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getDatosHospedajeById($pasajero_id){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
+        $query = $this->db->query('SELECT nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE pasajero_id = '.$pasajero_id);
+        $data = $query->result_array();
+        return $data;
+    }
+
+
+    public function AgregarEventoHospedaje($data){
+        $this->db->insert('pasajero_hospedaje',$data);
     }
 
 }

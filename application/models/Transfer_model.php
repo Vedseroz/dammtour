@@ -7,7 +7,7 @@ class Transfer_model extends CI_model {
         parent::__construct($table);
     }
 
-    public function datatable(){
+    /*public function datatable(){
         $table = 'transfer';
         $primarykey = 'transfer.transfer';
         $columns = array(
@@ -22,10 +22,29 @@ class Transfer_model extends CI_model {
         );
         $data = $this->data_tables->complex($_POST,$table,$primarykey,$columns);
         return $data;
+    }*/
+
+    public function getAllTransfers(){
+        $query = $this->db->query('SELECT * FROM datos_transfer');
+        $data = $query->result_array();
+        return $data;
+    }
+
+
+    public function getDatosTransferById($pasajero_id){ //con este metodo se saca la data de los transfers asociados al pasajero.
+        $query = $this->db->query('SELECT cant_adultos,cant_ninos,cant_maletas,fechallegada,horallegada,fechasalida,horasalida FROM datos_transfer WHERE pasajero_id = '.$pasajero_id);
+        $data = $query->result_array();
+        return $data;
     }
 
     public function InsertarTransfer($data){
         $this->db->insert('transfer',$data);
     }
 
+    public function getLastId(){
+        $query = $this->db->query('SELECT MAX(id_transfer) FROM transfer');
+        $data = $query->result_array();
+        return $data[0]['MAX(id_transfer)'];
+
+    }
 }

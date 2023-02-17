@@ -65,10 +65,10 @@
     editable: true,
     selectable: true,
     selectMirror: true,
-    events:"<?php echo base_url();?>index.php/Transfer/getDatosVoucherCalendario",
+    events:"<?php echo base_url();?>index.php/Pasajero/getDatosPasajeroCalendario",
     // aqui van las funciones asociadas al select
 
-    eventClick: function(info) {
+    eventClick: function(info) {   //se carga la informacion de cada una de las instancias clickeadas.
       // AJAX request
       $.ajax({
         url: '<?php echo base_url();?>index.php/Transfer/getDatosVoucherById/'+info.event.id,
@@ -92,8 +92,6 @@
            text += '<li><label for="hora_inicio">HORA INICIO:</label>'+' '+data[0]['hora_inicio']+'</li>';
            text += '<li><label for="destino">DESTINO:</label>'+' '+data[0]['destino']+'</li>';
            text += '<li><label for="hora_finalizacion">HORA FINALIZACION:</label>'+' '+data[0]['hora_finalizacion']+'</li>';
-
-
            text += '</ul>'
 
            $('.modal-body').html(text);

@@ -10,9 +10,9 @@ class Transfer extends CI_Controller{
         }
 
         //load models
-        $this->load->model('Transfer_model');
 		$this->load->model('Pasajero_model');
 		$this->load->model('Voucher_model');
+		$this->load->model('Transfer_model');
 
     }
 
@@ -53,30 +53,48 @@ class Transfer extends CI_Controller{
 
 	}
 
-    public function AgregarEventoForm($id_pasajero){
+    public function agregarTransfer($pasajero_id){
 		//form validation
-		$this->form_validation->set_rules("fecha","<b>Fecha</b>","required");
-		$this->form_validation->set_rules('Origen','<b>Origen</b>','trim|required');
-		$this->form_validation->set_rules('Hora de Inicio','<b>Hora de Inicio</b>','trim|required');
-		$this->form_validation->set_rules('Destino','<b>destino</b>','trim|required');
-		$this->form_validation->set_rules('Hora de Finalizacion','<b>Hora de Finalizacion</b>','trim|required');
-	
-			
+		$this->form_validation->set_rules("fechallegada","<b>Fecha de Llegada</b>","required");
+		$this->form_validation->set_rules('horallegada','<b>Hora de Llegada</b>','trim|required');
+		$this->form_validation->set_rules("fechasalida","<b>Fecha de Salida</b>","required");
+		$this->form_validation->set_rules('horasalida','<b>Hora de Salida</b>','trim|required');
+		$this->form_validation->set_rules('cant_adultos','<b>Cantidad de Adultos</b>','trim|required');
+		$this->form_validation->set_rules('cant_ninos','<b>Cantidad de Niños</b>','trim|required');
+		$this->form_validation->set_rules('cant_maletas','<b>Cantidad de Maletas</b>','trim|required');
 
-		$datos_transfer = array(   //captura de todos los datos del formulario
-			'fecha' => $this->input->post('fecha'),
-			'origen' => $this->input->post('origen'),
-			'hora_inicio' => $this->input->post('hora_inicio'),
-			'destino' => $this->input->post('destino'),
-			'hora_finalizacion' => $this->input->post('hora_finalizacion'),
-			'detalles' => $this->input->post('detalles'),
-			'pasajero_id' => $id_pasajero
+
+		//primero insertamos los datos asociados al transfer en especifico, la cantidad de ninos, adultos y maletas, en conjunto de que despues se asociara los datos 
+		//del chofer y del vehiculo.
+
+		$datos_transfer = array(
+			'cant_adultos' => $this->input->post('cant_adultos'),
+			'cant_ninos' => $this->input->post('cant_ninos'),
+			'cant_maletas' => $this->input->post('cant_maletas')
 		);
-				
-		$this->Voucher_model->InsertarVoucher($datos_transfer); //los ingresa a la tabla 
-		
 
-		redirect(site_url('transfer/AsignarTransfer/'.$id_pasajero)); //se devuelve a la pantalla del pasajero al cual se le hizo el voucher.
+		$this->Transfer_model->InsertarTransfer($datos_transfer);
+		$id_transfer = $this->Transfer_model->getLastId();
+			
+		$datos_evento = array(   //captura de todos los datos del formulario
+			'fechallegada' => $this->input->post('fechallegada'),
+			'horallegada' => $this->input->post('horallegada'),
+			'fechasalida' => $this->input->post('fechasalida'),
+			'horasalida' => $this->input->post('horasalida'),
+			'pasajero_id' => $pasajero_id,
+			'transfer_id' => $id_transfer
+		);
+		
+		$estado_pasajero = array(
+			'pasajero_id' => $pasajero_id,
+			'estado' => 1
+		);
+		var_dump($datos_evento);
+
+		$this->Pasajero_model->cambiarEstadoPasajero($estado_pasajero);
+		$this->Pasajero_model->AgregarEventoTransfer($datos_evento);
+
+		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el voucher.
 
 	}
 
@@ -112,6 +130,16 @@ class Transfer extends CI_Controller{
     public function getDatosTransfer(){
 		$data = $this->Transfer_model->datatable();
 		echo json_encode($data);
+		return;
+	}
+
+	public function getDatosTransferById($pasajero_id){
+		$aux = $this->Transfer_model->getDatosTransferById($pasajero_id);
+		$transfer['draw'] = 0;
+		$transfer['recordsTotal'] = count($aux);
+		$transfer['recordsFiltered'] = count($aux);
+		$transfer['data'] = $aux;
+		echo json_encode($transfer);
 		return;
 	}
 
