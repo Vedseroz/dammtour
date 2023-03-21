@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: #343A40;
+  color: #021D59;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
@@ -122,7 +122,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 input[type=text] {
   background-color: #f6f6f6;
   border: none;
-  color: #343A40;
+  color: #021D59;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -240,7 +240,7 @@ input[type=text]:placeholder {
   bottom: -10px;
   width: 0;
   height: 2px;
-  background-color: #56baed;
+  background-color: #021D59;
   content: "";
   transition: width 0.2s;
 }
@@ -264,7 +264,7 @@ input[type=text]:placeholder {
 #icon {
   width:60%;
 }
-</style>
+</style> 
 
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -277,8 +277,9 @@ input[type=text]:placeholder {
     <!-- Tabs Titles -->
 
     <!-- Icon -->
+    <br>
     <div class="fadeIn first">
-    <img src="LOGO.png">
+    <img src="<?php echo base_url()."assets/img/LOGO.png" ?>" width="90%" height="10%">
     </div>
 
     <!-- Login Form -->

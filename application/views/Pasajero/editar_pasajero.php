@@ -62,58 +62,84 @@
                 <div class="row">
                   <div class="col-3">
                     <label for="fechallegada">Fecha llegada: &nbsp;</label>
-                    <input type="date" name="fechallegada" id="fechallegada" ></div>
+                    <input type="date" name="fechallegada" id="fechallegada" required></div>
                   <div class="col-2">
                     <label for="horallegada">Hora llegada: &nbsp;</label>
-                    <input type="time" name="horallegada" id="horallegada" ></div>
+                    <input type="time" name="horallegada" id="horallegada" required></div>
                 </div>
 
                 <div class="row">
                   <div class="col-3">
                   <label for="fechasalida">Fecha salida: &nbsp;</label>
-                    <input type="date" name="fechasalida" id="fechasalida"></div>
+                    <input type="date" name="fechasalida" id="fechasalida" required></div>
                   <div class="col-2">
                   <label for="horasalida">Hora salida: &nbsp;</label>
-                    <input type="time" name="horasalida" id="horasalida" ></div>
+                    <input type="time" name="horasalida" id="horasalida" required></div>
                 </div>
 
                 <div class="row">
                   <div class="col-3">
                   <label for="adultos">Cantidad de adultos: &nbsp;</label>
-                    <input type="number" name="cant_adultos" id="cant_adultos" min="1" max="20"></div>
+                    <input type="number" name="cant_adultos" id="cant_adultos" min="1" max="20" required></div>
                   <div class="col-3">
                   <label for="ninos">Cantidad de niños: &nbsp;</label>
-                    <input type="number" name="cant_ninos" id="cant_ninos" min="0" max="20"></div>
+                    <input type="number" name="cant_ninos" id="cant_ninos" min="0" max="20" required></div>
                   <div class="col-3">
                   <label for="horasalida">Cantidad de maletas: &nbsp;</label>
-                    <input type="number" name="cant_maletas" id="cant_maletas" min="0" max="20"></div>
+                    <input type="number" name="cant_maletas" id="cant_maletas" min="0" max="20" required></div>
                 </div>
 
-                <div class = "col-3"></div>
-                <div class="clearfix form-actions center">
-                      <button class="btn btn-info" type="submit">
+                <div class="row">
+                  <div class="col-3">
+                  <label for="adultos">Vehiculo: &nbsp;</label>
+                    <select name="vehiculo" id="vehiculo" required>
+                      <option>Seleccione un vehiculo</option>
+                      <?php 
+                        $this->load->model('Vehiculo_model');
+                        $vehiculos = $this->Vehiculo_model->getVehiculos();
+                        var_dump($vehiculos);
+                        for($i=0;$i<count($vehiculos);$i++){
+                          echo '<option value="'.$vehiculos[$i]['id_vehiculo'].'">'.$vehiculos[$i]['marca'].' '.$vehiculos[$i]['modelo'].' --- '.$vehiculos[$i]['patente'].'</option>';
+                        }      
+                       ?>
+                    </select>
+                </div>
+                      </div>
+
+                <div class ="row" >
+                  
+                  <button class="btn btn-info" type="submit" style="margin:10px">
                         <i class="ace-icon fa fa-check bigger-110"></i>
                         Ingresar
                       </button>
+                  
 
-                      <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseTransfer" aria-expanded="false" aria-controls="collapseExample">
+                  
+                  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseTransfer" aria-expanded="false" aria-controls="collapseExample">
                         Mostrar Transfers del Pasajero
                       </button>
-                      
-                      <div class="collapse" id="collapseTransfer">
+                      </div>
+                 
+
+                
+
+                
+                  <div class="collapse" id="collapseTransfer">
                         <div class="card card-body">
                          <?php $this->load->view('Pasajero/tablapasajero_transfer')?>
-                        </div>
-                      </div>
-
-                  </div>  
-                </div>
+                  </div>
+</div>
+                 
+                  </div>
+                
                 </form>
+
+                
 
                 <!--Hospedaje-------------------------------------------------------------------------------------------------------------------->
                 <hr>
                 <h3 class="card-title">HOSPEDAJE</h3>
-                <!--informacion del transfer-->
+                <!--informacion del transfer---------------------------------------------------------------------------------------------------------------->
                 <?= form_open_multipart(site_url('Hospedaje/IngresarHospedajeForm/'.$this->uri->segment(3)), 'class="form-horizontal" role="form" method="POST" ') ?>
 
                 <br>
@@ -121,25 +147,25 @@
                 <div class="row">
                   <div class="col-3">
                     <label for="fechallegada">Fecha llegada: &nbsp;</label>
-                    <input type="date" name="fechallegada2" id="fechallegada" ></div>
+                    <input type="date" name="fechallegada2" id="fechallegada" required></div>
                   <div class="col-2">
                     <label for="horallegada">Hora llegada: &nbsp;</label>
-                    <input type="time" name="horallegada2" id="horallegada" ></div>
+                    <input type="time" name="horallegada2" id="horallegada" required></div>
                 </div>
 
                 <div class="row">
                   <div class="col-3">
                   <label for="fechasalida">Fecha salida: &nbsp;</label>
-                    <input type="date" name="fechasalida2" id="fechasalida"></div>
+                    <input type="date" name="fechasalida2" id="fechasalida" required></div>
                   <div class="col-2">
                   <label for="horasalida">Hora salida: &nbsp;</label>
-                    <input type="time" name="horasalida2" id="horasalida" ></div>
+                    <input type="time" name="horasalida2" id="horasalida" required></div>
                 </div>
 
-                <div class="row">
+            <div class="row">
                   <div class="col-3">
                   <label for="pais">Pais: &nbsp;</label>
-                  <select name="pais1" id="pais1">
+                  <select name="pais1" id="pais1" required>
                   <option>Seleccione un pais</option>
                   <!--CARGAMOS LOS PAISES EN EL SELECT-->
                   <?php $this->load->model('Localidad_model');
@@ -151,12 +177,13 @@
                   ?>
                   </select>
                  </div>
-                  <div class="col-3">
+
+                <div class="col-3">
                   <label for="ciudad">Ciudad: &nbsp;</label>
-                  <select name="ciudad1" id="ciudad1">
+                  <select name="ciudad1" id="ciudad1" required>
                     <option>Seleccione una Ciudad</option>
                   </select>
-                  </div>
+                </div>
                       
 
                   <!--SELECT DINAMICO CIUDAD--------------------------------------------------------------------->
@@ -188,12 +215,15 @@
                       })
                     })
                   </script>
+
                   <!-------------------------------------------------------------------------------------->
 
-                  <div class="col-3">
-                  <label for="posada">Posada: &nbsp;</label>
-                    <select  name="posada" ID="posada">
-                    <option>Seleccione una posada</option>
+                <div class="col-3">
+                  <label for="ciudad">Posada: &nbsp;</label>
+                  <select name="posada" id="posada" required>
+                    <option>Seleccione una Posada</option>
+                  </select>
+                </div>
 
                      <!--SELECT DINAMICO POSADA--------------------------------------------------------------------->
                   <script>
@@ -224,39 +254,40 @@
                     })
                   </script>
                   <!-------------------------------------------------------------------------------------->
+                  
+            </div>
+                
 
-
-                  </select>
-                  </div>
-
-                <div class="clearfix form-actions center">
-                      <button class="btn btn-info" type="submit">
+                <div class ="row" >
+                  
+                  <button class="btn btn-info" type="submit" style="margin:10px">
                         <i class="ace-icon fa fa-check bigger-110"></i>
                         Ingresar
                       </button>
+                  
 
-                      <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseHospedaje" aria-expanded="false" aria-controls="collapseExample">
+                  
+                  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseHospedaje" aria-expanded="false" aria-controls="collapseExample">
                         Mostrar Hospedajes del Pasajero
                       </button>
-                      
-                      <div class="collapse" id="collapseHospedaje">
-                        <div class="card card-body">
-                        <?php $this->load->view('Pasajero/tablapasajero_hospedaje')?>
-                        </div>
                       </div>
-                    
-                </div>
-                </div>
+                 
+                
+                  <div class="collapse" id="collapseHospedaje">
+                        <div class="card card-body">
+                         <?php $this->load->view('Pasajero/tablapasajero_hospedaje')?>
                   </div>
-                  </form>
+                  </div>
+                 
 
-                  <br>
+                  </div>
+                </form>
 
 
                 <!--DATOS DE LOS TOURS----------------------------------------------------------------------------------------------------------->
                 <hr>
                 <h3 class="card-title">TOURS</h3>
-                <!--informacion del transfer-->
+                <!--informacion del transfer---------------------------------------------------------------------------------------------------------------->
                 <?= form_open_multipart(site_url('Tour/IngresarTourForm/'.$this->uri->segment(3)), 'class="form-horizontal" role="form" method="POST" ') ?>
 
                 <br>
@@ -264,42 +295,47 @@
                 <div class="row">
                   <div class="col-3">
                     <label for="fechallegada">Fecha llegada: &nbsp;</label>
-                    <input type="date" name="fechallegada3" id="fechallegada" ></div>
+                    <input type="date" name="fechallegada3" id="fechallegada" required></div>
                   <div class="col-2">
                     <label for="horallegada">Hora llegada: &nbsp;</label>
-                    <input type="time" name="horallegada3" id="horallegada" ></div>
+                    <input type="time" name="horallegada3" id="horallegada" required></div>
                 </div>
 
                 <div class="row">
                   <div class="col-3">
                   <label for="fechasalida">Fecha salida: &nbsp;</label>
-                    <input type="date" name="fechasalida3" id="fechasalida"></div>
+                    <input type="date" name="fechasalida3" id="fechasalida" required></div>
                   <div class="col-2">
                   <label for="horasalida">Hora salida: &nbsp;</label>
-                    <input type="time" name="horasalida3" id="horasalida" ></div>
+                    <input type="time" name="horasalida3" id="horasalida" required></div>
                 </div>
 
-                <div class="row">
+            <div class="row">
                   <div class="col-3">
                   <label for="pais">Pais: &nbsp;</label>
-                  <select name="pais2" id="pais2">
-                    <option>Seleccione un Pais</option>
-                    <!-- SCRIPT------------------------------------------------------------------------------------------------------>
-                    <?php $this->load->model('Localidad_model');
+                  <select name="pais2" id="pais2" required>
+                  <option>Seleccione un pais</option>
+                  <!--CARGAMOS LOS PAISES EN EL SELECT-->
+                  <?php $this->load->model('Localidad_model');
                         $paises = $this->Localidad_model->getPaises();
+                        var_dump($paises);
                         for($i=0;$i<count($paises);$i++){
                           echo '<option value="'.$paises[$i]['pais'].'">'.$paises[$i]['pais'].'</option>';
                         }      
-                    ?>
-                    <!--------------------------------------------------------------------------------------------------------------->
+                  ?>
                   </select>
                  </div>
-                  <div class="col-3">
+
+                <div class="col-3">
                   <label for="ciudad">Ciudad: &nbsp;</label>
-                  <select name="ciudad2" id="ciudad2">
+                  <select name="ciudad2" id="ciudad2" required>
                     <option>Seleccione una Ciudad</option>
-                      <!--SCRIPT------------------------------------------------------------------------------------------------------> 
-                      <script>
+                  </select>
+                </div>
+                      
+
+                  <!--SELECT DINAMICO CIUDAD--------------------------------------------------------------------->
+                  <script>
                     $(document).ready(function(){
                       $("#pais2").change(function(){
                         var pais_seleccionado = $(this).val();
@@ -321,35 +357,37 @@
                                
                               }
                           });
+
+
+
                       })
                     })
                   </script>
 
-                      <!--------------------------------------------------------------------------------------------------------------> 
+                  <!-------------------------------------------------------------------------------------->
 
-
+                <div class="col-3">
+                  <label for="tour">Tour: &nbsp;</label>
+                  <select name="tour" id="tour" required>
+                    <option>Seleccione una Posada</option>
                   </select>
-                  </div>
-                  <div class="col-3">
-                  <label for="posada">Tour: &nbsp;</label>
-                  <select name="tour" ID="tour">
-                    <option >Seleccione un Tour</option>
+                </div>
 
-                     <!--SCRIPT------------------------------------------------------------------------------------------------------> 
-                     <script>
+                     <!--SELECT DINAMICO POSADA--------------------------------------------------------------------->
+                  <script>
                     $(document).ready(function(){
                       $("#ciudad2").change(function(){
                         var ciudad_seleccionada = $(this).val();
                         console.log(ciudad_seleccionada);
 
                         $.ajax({
-                              url: '<?php echo base_url();?>index.php/Tour/getTourPorCiudad/'+ciudad_seleccionada,
+                              url: '<?php echo base_url();?>index.php/Tour/getTourPorCiudad/'+ ciudad_seleccionada,
                               type: 'post',
                               success: function(response){ 
                                 // Add response in Modal body
+                                var text = '';
                                 var data = JSON.parse(response);
                                 console.log(data);
-                                var text = '';
 
                                 for (let i = 0; i<data.length;i++){
                                 text += '<option value="'+data[i]['nombre_tour']+'">'+data[i]['nombre_tour']+'</option>';
@@ -359,38 +397,41 @@
                                
                               }
                           });
+
                       })
                     })
                   </script>
+                  <!-------------------------------------------------------------------------------------->
+                  
+            </div>
+                 
 
-                      <!-------------------------------------------------------------------------------------------------------------->
+                
 
-                  </select>
-                  </div>
-        
-
-                <div class="clearfix form-actions center">
-                      <button class="btn btn-info" type="submit">
+                <div class ="row" >
+                  
+                  <button class="btn btn-info" type="submit" style="margin:10px">
                         <i class="ace-icon fa fa-check bigger-110"></i>
                         Ingresar
                       </button>
+                  
 
-                      <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseTour" aria-expanded="false" aria-controls="collapseExample">
+                  
+                  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseTour" aria-expanded="false" aria-controls="collapseExample">
                         Mostrar Tours del Pasajero
                       </button>
-                      
-                      <div class="collapse" id="collapseTour">
-                        <div class="card card-body">
-                        <?php $this->load->view('Pasajero/tablapasajero_tour')?>
-                        </div>
                       </div>
-                    
-                </div>
-                </div>
+                 
                 
-                <br>
-                </form>
+                  <div class="collapse" id="collapseTour">
+                        <div class="card card-body">
+                         <?php $this->load->view('Pasajero/tablapasajero_tour')?>
                   </div>
+                 
+                  </div>
+                  </div>
+                
+                </form>
 
                 <!--COSTOS----------------------------------------------------------------------------------------------------------------------------------------->
                

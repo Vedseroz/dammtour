@@ -71,11 +71,29 @@ class Hospedaje extends CI_Controller{
 			'hospedaje_id' => $hospedaje_id
 		);
 
+		$estado_pasajero = array(
+			'pasajero_id' => $pasajero_id,
+			'estado' => 1
+		);
+		
+		$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
 		$this->Hospedaje_model->AgregarEventoHospedaje($datos_evento);
+		
 
 		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
 	}
+
+	
+	public function EliminarEventoHospedaje($id_pasajero_hospedaje){
+		
+		$pasajero_id = $this->Hospedaje_model->getPasajeroIdByEventoId($id_pasajero_hospedaje);
+
+		$this->Hospedaje_model->EliminarEventoHospedaje($id_pasajero_hospedaje); //se elimina el evento.
+
+		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
+	}
+
 
     public function getDatosHospedaje(){
 		$data = $this->Hospedaje_model->datatable();

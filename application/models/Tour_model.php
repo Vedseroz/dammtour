@@ -33,12 +33,21 @@ class Tour_model extends CI_model {
         return $data;
     }
 
-    public function getDatosTourById($pasajero_id){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
-        $query = $this->db->query('SELECT nombre_tour,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_tour WHERE pasajero_id = '.$pasajero_id);
+    public function getDatosTourById($id_pasajero_tour){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
+        $query = $this->db->query('SELECT tour_id,id_pasajero_tour,pasajero_id,nombre_tour,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_tour WHERE id_pasajero_tour = '.$id_pasajero_tour);
         $data = $query->result_array();
         return $data;
     }
 
+    public function getPasajeroIdByEventoId($id_pasajero_tour){
+        $query = $this->db->query('SELECT pasajero_id FROM datos_tour WHERE id_pasajero_tour = '.$id_pasajero_tour);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function EliminarEventoTour($id_pasajero_tour){
+        $this->db->delete('pasajero_tour',array('id_pasajero_tour' => $id_pasajero_tour));
+    }
 
     public function AgregarEventoTour($data){
         $this->db->insert('pasajero_tour',$data);

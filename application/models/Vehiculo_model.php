@@ -23,6 +23,18 @@ class Vehiculo_model extends CI_model {
         return $data;
     }
 
+    public function getVehiculos(){
+        $query = $this->db->query('SELECT * FROM vehiculo');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getVehiculosDisponibles(){
+        $query = $this->db->query('SELECT * FROM vehiculo WHERE estado = 0');
+        $data = $query->result_array();
+        return $data;
+    }
+
     public function getVehiculoById($id_vehiculo){
         $query = $this->db->query('SELECT * FROM vehiculo WHERE id_vehiculo = '.$id_vehiculo);
         $data = $query->result_array();

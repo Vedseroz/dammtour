@@ -35,21 +35,22 @@
                         
                 <br><hr>
 
-                <ul>
-                    <li>
-                    <a href="<?php echo site_url('vehiculo/IngresarVehiculo')?>" class="btn btn-dark"><p>Ingresar Nuevo Vehiculo</p><i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                    <br>
-                    <br>
-                    <?php
-
-                      
+                    <div class="row">
+                      <div class = 'col'>
+                      <a href="<?php echo site_url('vehiculo/IngresarVehiculo')?>" class="btn btn-dark rounded-circle"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                      </div>
+                    </div>
+          
+                    <div class = "row">
+                      <div class = "col d-flex justify-content-center">
+                      <?php
                       // en este sector se carga la tabla con todos los pasajeros. 
                       $this->load->view('vehiculo/tabla_vehiculo');
                     ?>
+                      </div>
+                    </div>
 
-                    </li>
-                </ul>
+                    
             
 
               

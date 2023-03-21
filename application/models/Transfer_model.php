@@ -31,8 +31,8 @@ class Transfer_model extends CI_model {
     }
 
 
-    public function getDatosTransferById($pasajero_id){ //con este metodo se saca la data de los transfers asociados al pasajero.
-        $query = $this->db->query('SELECT cant_adultos,cant_ninos,cant_maletas,fechallegada,horallegada,fechasalida,horasalida FROM datos_transfer WHERE pasajero_id = '.$pasajero_id);
+    public function getDatosTransferById($id_pasajero_transfer){ //con este metodo se saca la data de los transfers asociados al pasajero.
+        $query = $this->db->query('SELECT id_transfer,id_pasajero_transfer,pasajero_id,cant_adultos,cant_ninos,cant_maletas,fechallegada,horallegada,fechasalida,horasalida,marca,modelo,patente FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
         $data = $query->result_array();
         return $data;
     }
@@ -47,4 +47,9 @@ class Transfer_model extends CI_model {
         return $data[0]['MAX(id_transfer)'];
 
     }
+
+    public function EliminarTransfer($id_transfer){
+        $this->db->delete('transfer',array('id_transfer' => $id_transfer));
+    }
+
 }

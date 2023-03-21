@@ -33,8 +33,14 @@ class Hospedaje_model extends CI_model {
         return $data;
     }
 
-    public function getDatosHospedajeById($pasajero_id){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
-        $query = $this->db->query('SELECT nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE pasajero_id = '.$pasajero_id);
+    public function getDatosHospedajeById($id_pasajero_hospedaje){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
+        $query = $this->db->query('SELECT hospedaje_id,pasajero_id,id_pasajero_hospedaje,nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE id_pasajero_hospedaje = '.$id_pasajero_hospedaje);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getPasajeroIdByEventoId($id_pasajero_hospedaje){
+        $query = $this->db->query('SELECT pasajero_id FROM datos_hospedaje WHERE id_pasajero_hospedaje = '.$id_pasajero_hospedaje);
         $data = $query->result_array();
         return $data;
     }
@@ -43,5 +49,10 @@ class Hospedaje_model extends CI_model {
     public function AgregarEventoHospedaje($data){
         $this->db->insert('pasajero_hospedaje',$data);
     }
+
+    public function EliminarEventoHospedaje($id_pasajero_hospedaje){
+        $this->db->delete('pasajero_hospedaje',array('id_pasajero_hospedaje' => $id_pasajero_hospedaje));
+    }
+
 
 }

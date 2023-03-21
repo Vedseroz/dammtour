@@ -25,7 +25,7 @@
             },
             "columnDefs":[
                 {
-                    "data":'pasajero_id',
+                    "data":'id_pasajero_hospedaje',
                     "targets":0,
                     "searchable":true,
                     "render": function (data,type,row,meta){
@@ -89,7 +89,7 @@
                 "orderable": false,
                 "render": function(data,type,row){
                     
-                    return '<a onclick="return confirm_modal('+row.id_pasajero+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
+                    return '<a onclick="return confirm_modal0('+row.id_pasajero_hospedaje+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#hospedajemodal" id = "'+row.id_pasajero_hospedaje+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
 
                     }
                 },
@@ -102,13 +102,13 @@
         })
     });
 
-    function confirm_modal(id){
+    function confirm_modal0(id){
         console.log(id);
-        var url='<?php echo site_url('Pasajero/eliminarPasajero/')?>';
+        var url='<?php echo site_url('Hospedaje/eliminarEventoHospedaje/')?>';
         var new_url = url+id;
-        //$("url-delete").attr("href",new_url);
-        jQuery('#exampleModal').modal('show',{backdrop : 'static'});
-        var link = document.getElementById('url-delete');
+        //$("url-delete0").attr("href",new_url);
+        jQuery('#hospedajemodal').modal('show',{backdrop : 'static'});
+        var link = document.getElementById('url-delete0');
         link.href = new_url;
     }
 
@@ -135,7 +135,7 @@
 </div> 
 
 <!--Modal-->
-<div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog">
+<div class="modal fade" id="hospedajemodal"  tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -146,13 +146,13 @@
       </div>
       <div class="modal-body">
         <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
-        <h4>¿Está seguro que quiere eliminar a este pasajero?</h4>
+        <h4>¿Está seguro que quiere eliminar este evento?</h4>
       </div>
 
       <!--Este es el pie del modal aqui puedes agregar mas botones-->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a id="url-delete" name="url-delete" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
+        <a id="url-delete0" name="url-delete0" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
       </div>
     </div>
   </div>

@@ -70,7 +70,8 @@ class Transfer extends CI_Controller{
 		$datos_transfer = array(
 			'cant_adultos' => $this->input->post('cant_adultos'),
 			'cant_ninos' => $this->input->post('cant_ninos'),
-			'cant_maletas' => $this->input->post('cant_maletas')
+			'cant_maletas' => $this->input->post('cant_maletas'),
+			'vehiculo_id' => $this->input->post('vehiculo')
 		);
 
 		$this->Transfer_model->InsertarTransfer($datos_transfer);
@@ -98,7 +99,18 @@ class Transfer extends CI_Controller{
 
 	}
 
-	public function EditarEventoForm($id_voucher){
+	public function EliminarEventoTransfer($id_pasajero_transfer){
+		
+		$pasajero_id = $this->Pasajero_model->getPasajeroIdByEventoId($id_pasajero_transfer);
+		$transfer_id = $this->Pasajero_model->getTransferIdByEventoId($id_pasajero_transfer);
+
+		$this->Pasajero_model->EliminarEventoTransfer($id_pasajero_transfer); //se elimina el evento.
+		$this->Transfer_model->EliminarTransfer($transfer_id);
+
+		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
+	}
+
+	/*public function EditarEventoForm($id_voucher){
 		//form validation
 		$this->form_validation->set_rules("fecha","<b>Fecha</b>","required");
 		$this->form_validation->set_rules('Origen','<b>Origen</b>','trim|required');
@@ -125,13 +137,25 @@ class Transfer extends CI_Controller{
 		
 		redirect(site_url('transfer/AsignarTransfer/'.$id_pasajero)); //se devuelve a la pantalla del pasajero al cual se le hizo el voucher.
 
-	}
+	} */
+
+
 
     public function getDatosTransfer(){
 		$data = $this->Transfer_model->datatable();
 		echo json_encode($data);
 		return;
 	}
+
+
+	// ================================================================ASIGNACION DE VEHICULOS AL TRANSFER =====================================================================
+
+	public function asignarVehiculo($id_transfer){
+
+	}
+
+
+	// =========================================================================================================================================================================
 
 	public function getDatosTransferById($pasajero_id){
 		$aux = $this->Transfer_model->getDatosTransferById($pasajero_id);
@@ -172,6 +196,8 @@ class Transfer extends CI_Controller{
 		echo json_encode($new_data);
 		return;
 	}
+
+	
 	
 
 

@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="<?php site_url('inicio')?>" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light center"><img src="../assets/img/LOGO.png" width="90%" height="10%"></span>
+      <span class="brand-text font-weight-light center"><img src="<?php echo base_url()."assets/img/LOGO.png" ?>" width="90%" height="10%"></span>
     </a>
 
     <!-- Sidebar -->
@@ -37,7 +37,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('transfer');?>" class="nav-link">
+                <a href="<?php //echo site_url('transfer');?>" class="nav-link">
                   <i class="fa fa-taxi nav-icon"></i>
                   <p>Transfer</p>
                 </a>

@@ -70,29 +70,79 @@
 
     eventClick: function(info) {   //se carga la informacion de cada una de las instancias clickeadas.
       // AJAX request
+      console.log(info.event.id);
       $.ajax({
-        url: '<?php echo base_url();?>index.php/Transfer/getDatosVoucherById/'+info.event.id,
+        url: '<?php echo base_url();?>index.php/Pasajero/getDatosPasajerosCalendarioById/'+info.event.id,
         type: 'post',
         success: function(response){ 
            // Add response in Modal body
-           var data = JSON.parse(response);
-           var text = '';
-           console.log(data[0]);
+           var string = response;
+           var new_string = string.slice(13,(string.length-2));
+           console.log(new_string);
 
-           text += '<ul>';
-           text += '<li><label for="nombre">Nombre Pasajero:</label>'+' '+data[0]['nombre']+'</li>';
-           text += '<li><label for="apellido">Apellido Pasajero:</label>'+' '+data[0]['apellido']+'</li>';
-           text += '<li><label for="telefono">Telefono Pasajero:</label>'+' '+data[0]['telefono']+'</li>';
-           text += '<li><label for="email">Correo Pasajero:</label>'+' '+data[0]['email']+'</li>';
-           text += '<li><label for="acompa">Cantidad de Pasajeros:</label>'+' '+data[0]['acompa']+'</li>';
+           var data = JSON.parse(new_string);
+           console.log(data);
+           var text = '';
+
+           if(data.id_transfer!=undefined){ // caso de que sea un transfer
+
+            data.fechallegada =  data.fechallegada.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+            data.fechasalida = data.fechasalida.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+
+              text += '<ul>';
+           text += '<li><label for="nombre">Nombre del Pasajero:</label>'+' '+data.nombre+'</li>';
+           text += '<li><label for="nombre">Cantidad de Adultos:</label>'+' '+data.cant_adultos+'</li>';
+           text += '<li><label for="apellido">Cantidad de Niños:</label>'+' '+data.cant_ninos+'</li>';
+           text += '<li><label for="telefono">Cantidad de Maletas:</label>'+' '+data.cant_maletas+'</li>';
            text += '<br><hr>'
            text += '<h5>Informacion Transfer</h5>'+' ';
-           text += '<li><label for="fecha">FECHA:</label>'+' '+data[0]['fecha']+'</li>';
-           text += '<li><label for="origen">ORIGEN:</label>'+' '+data[0]['origen']+'</li>';
-           text += '<li><label for="hora_inicio">HORA INICIO:</label>'+' '+data[0]['hora_inicio']+'</li>';
-           text += '<li><label for="destino">DESTINO:</label>'+' '+data[0]['destino']+'</li>';
-           text += '<li><label for="hora_finalizacion">HORA FINALIZACION:</label>'+' '+data[0]['hora_finalizacion']+'</li>';
+           text += '<li><label for="fecha">FECHA DE LLEGADA:</label>'+' '+data.fechallegada+'</li>';
+           text += '<li><label for="fecha">HORA DE LLEGADA:</label>'+' '+data.horallegada+'</li>';
+           text += '<li><label for="fecha">FECHA DE SALIDA:</label>'+' '+data.fechasalida+'</li>';
+           text += '<li><label for="fecha">HORA DE SALIDA:</label>'+' '+data.horasalida+'</li>';
+           text += '<li><label for="fecha">VEHICULO:</label>'+' '+data.marca+' '+data.modelo+'</li>';
+           text += '<li><label for="fecha">PATENTE VEHICULO:</label>'+' '+data.patente+'</li>';
            text += '</ul>'
+           }
+
+           if(data.hospedaje_id != undefined){
+            
+            data.fechallegada =  data.fechallegada.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+            data.fechasalida = data.fechasalida.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+            
+            text += '<ul>';
+           text += '<li><label for="nombre">Nombre del Pasajero:</label>'+' '+data.nombre+'</li>';
+           text += '<li><label for="nombre">Pais:</label>'+' '+data.pais+'</li>';
+           text += '<li><label for="apellido">Ciudad:</label>'+' '+data.ciudad+'</li>';
+           text += '<li><label for="telefono">Posada:</label>'+' '+data.nombre_hospedaje+'</li>';
+           text += '<br><hr>'
+           text += '<h5>Informacion Hospedaje</h5>'+' ';
+           text += '<li><label for="fecha">FECHA DE LLEGADA:</label>'+' '+data.fechallegada+'</li>';
+           text += '<li><label for="fecha">HORA DE LLEGADA:</label>'+' '+data.horallegada+'</li>';
+           text += '<li><label for="fecha">FECHA DE SALIDA:</label>'+' '+data.fechasalida+'</li>';
+           text += '<li><label for="fecha">HORA DE SALIDA:</label>'+' '+data.horasalida+'</li>';
+           text += '</ul>'
+           }
+
+           if(data.tour_id!=undefined){
+
+            data.fechallegada =  data.fechallegada.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+            data.fechasalida = data.fechasalida.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+
+            text += '<ul>';
+           text += '<li><label for="nombre">Nombre del Pasajero:</label>'+' '+data.nombre+'</li>';
+           text += '<li><label for="nombre">Pais:</label>'+' '+data.pais+'</li>';
+           text += '<li><label for="apellido">Ciudad:</label>'+' '+data.ciudad+'</li>';
+           text += '<li><label for="telefono">Tour:</label>'+' '+data.nombre_tour+'</li>';
+           text += '<br><hr>'
+           text += '<h5>Informacion Tour</h5>'+' ';
+           text += '<li><label for="fecha">FECHA DE LLEGADA:</label>'+' '+data.fechallegada+'</li>';
+           text += '<li><label for="fecha">HORA DE LLEGADA:</label>'+' '+data.horallegada+'</li>';
+           text += '<li><label for="fecha">FECHA DE SALIDA:</label>'+' '+data.fechasalida+'</li>';
+           text += '<li><label for="fecha">HORA DE SALIDA:</label>'+' '+data.horasalida+'</li>';
+           text += '</ul>'
+           
+           }
 
            $('.modal-body').html(text);
 

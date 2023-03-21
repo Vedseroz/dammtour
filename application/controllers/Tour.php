@@ -41,7 +41,7 @@ class Tour extends CI_Controller{
 	}
 
     public function IngresarTourForm($pasajero_id){
-		//form validation
+		
 
 		//form validation
 		$this->form_validation->set_rules("fechallegada3","<b>Fecha de Llegada</b>","required");
@@ -73,11 +73,28 @@ class Tour extends CI_Controller{
 
         var_dump($datos_evento);
 
+		$estado_pasajero = array(
+			'pasajero_id' => $pasajero_id,
+			'estado' => 1
+		);
+		
+		$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
 		$this->Tour_model->AgregarEventoTour($datos_evento);
 
 		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
 	}
+
+	
+	public function EliminarEventoTour($id_pasajero_tour){
+		
+		$pasajero_id = $this->Tour_model->getPasajeroIdByEventoId($id_pasajero_tour);
+
+		$this->Tour_model->EliminarEventoTour($id_pasajero_tour); //se elimina el evento.
+
+		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
+	}
+
 
 	public function getDatosTourById($pasajero_id){
 		$aux = $this->Tour_model->getDatosTourById($pasajero_id);

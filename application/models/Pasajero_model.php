@@ -97,6 +97,22 @@ class Pasajero_model extends CI_model {
         $this->db->insert('pasajero_transfer',$data);
     }
 
+    public function EliminarEventoTransfer($id_pasajero_transfer){
+        $this->db->delete('pasajero_transfer',array('id_pasajero_transfer' => $id_pasajero_transfer));
+    }
+
+    public function getPasajeroIdByEventoId($id_pasajero_transfer){
+        $query = $this->db->query('SELECT pasajero_id FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getTransferIdByEventoId($id_pasajero_transfer){
+        $query = $this->db->query('SELECT transfer_id FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
+        $data = $query->result_array();
+        return $data;
+    }
+
     public function cambiarEstadoPasajero($data){
         $this->db->get('pasajero');
         $this->db->where('pasajero_id',$data['pasajero_id']);
