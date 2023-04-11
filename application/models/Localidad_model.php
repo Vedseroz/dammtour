@@ -17,6 +17,28 @@ class Localidad_model extends CI_model {
         $this->db->update('voucher',$data);
     }
 
+    public function getIdByCiudad($ciudad){
+        $query = $this->db->query('SELECT id_localidad FROM localidad WHERE ciudad = '.'"'.$ciudad.'"');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function ComprobarCiudadPais($ciudad,$pais){
+        $query = $this->db->query('SELECT COUNT(ciudad) FROM localidad WHERE ciudad = "'.$ciudad.'" AND pais = "'.$pais.'"');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getLastLocalidad(){ //obtiene el ultimo id insertado de la localidad
+        $query = $this->db->query('SELECT id_localidad FROM localidad ORDER BY id_localidad DESC LIMIT 1');
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function InsertarLocalidad($data){
+        $this->db->insert('localidad',$data);
+    }
+
     public function getPaises(){
         $query = $this->db->query('SELECT pais FROM localidad GROUP BY pais');
         $data = $query->result_array();

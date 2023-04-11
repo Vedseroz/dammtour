@@ -61,7 +61,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo site_url('tour');?>" class="nav-link">
                   <i class="fa fa-location-arrow nav-icon"></i>
                   <p>Tours</p>
                 </a>

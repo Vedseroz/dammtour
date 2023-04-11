@@ -157,8 +157,19 @@ class Transfer extends CI_Controller{
 
 	// =========================================================================================================================================================================
 
-	public function getDatosTransferById($pasajero_id){
-		$aux = $this->Transfer_model->getDatosTransferById($pasajero_id);
+	public function getDatosTransferById($id_pasajero_transfer){
+		$aux = $this->Transfer_model->getDatosTransferById($id_pasajero_transfer);
+		$transfer['draw'] = 0;
+		$transfer['recordsTotal'] = count($aux);
+		$transfer['recordsFiltered'] = count($aux);
+		$transfer['data'] = $aux;
+		echo json_encode($transfer);
+		return;
+	}
+
+
+	public function getDatosTransferByIdPasajero($pasajero_id){
+		$aux = $this->Transfer_model->getDatosTransferByIdPasajero($pasajero_id);
 		$transfer['draw'] = 0;
 		$transfer['recordsTotal'] = count($aux);
 		$transfer['recordsFiltered'] = count($aux);

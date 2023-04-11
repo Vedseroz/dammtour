@@ -1,4 +1,3 @@
-<script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/jquery.dataTables.bootstrap.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/dataTables.buttons.min.js') ?>"></script>
@@ -8,113 +7,85 @@
 <script src="<?= base_url('assets/js/buttons.colVis.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/dataTables.select.min.js') ?>"></script>
 
-<style><?php include 'tablapasajeros.css'?></style>
-
+<style><?php include 'tabla_vehiculo.css'?></style>
 
 
 <script>
     $(document).ready(function(){
-        var myTable = $('#dynamic-table3')
+        var myTable = $('#dynamic-table')
         //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
         .DataTable({
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Tour/getDatosTourByIdPasajero/'.$this->uri->segment(3)); ?>",
+                "url": "<?= site_url('Tour/getDatosTour'); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "data":'pasajero_id',
+                    "title":'Nombre Pasajero',
+                    "data":'nombre',
                     "targets":0,
                     "searchable":true,
-                    "render": function (data,type,row,meta){
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
+                    "visible":true
                 },
                 {
-                    "title": 'Tour',
-                    "data": 'nombre_tour',
+                    "title": 'Fecha',
+                    "data": 'fechallegada',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Ciudad',
-                    "data": 'ciudad',
+                    "title": 'Hora',
+                    "data": 'horallegada',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
                 },
                 {
+                    "title": 'Nombre Tour',
+                    "data": 'nombre_tour',
+                    "targets": 3,
+                    "visible":true,
+                    "searchable": true
+
+                },
+                {
+                    "title": 'Ciudad',
+                    "data": 'ciudad',
+                    "targets": 4,
+                    "visible":true,
+                    "searchable": true
+
+                },
+                {
                     "title": 'Pais',
                     "data": 'pais',
-                    "targets": 3,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Fecha de Llegada',
-                    "data": 'fechallegada',
-                    "targets": 4,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Hora de Llegada',
-                    "data": 'horallegada',
                     "targets": 5,
-                    "visible":true
+                    "visible":true,
+                    "searchable": false,
 
                 },
-                {
-                    "title": 'Fecha de Salida',
-                    "data": 'fechasalida',
-                    "targets": 6,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Hora de Salida',
-                    "data": 'horasalida',
-                    "targets": 7,
-                    "visible":true
-
-                },
-                {
-                "title": 'Opciones',
-                "data": null,
-                "targets": 8,
-                "searchable": false,
-                "orderable": false,
-                "render": function(data,type,row){
-                    
-                    return '<a onclick="return confirm_modal2('+row.id_pasajero_tour+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#tourmodal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
-
-                    }
-                },
-
             ],
-            "order":[[0,"asc"]],
+            "order":[[0,"desc"]],
             "language": {
             "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
             }
         })
     });
 
-    function confirm_modal2(id){
+    function confirm_modal(id){
         console.log(id);
-        var url='<?php echo site_url('Tour/eliminarEventoTour/')?>';
+        var url='<?php echo site_url('Vehiculo/eliminarVehiculo/')?>';
         var new_url = url+id;
         //$("url-delete").attr("href",new_url);
-        jQuery('#tourmodal').modal('show',{backdrop : 'static'});
-        var link = document.getElementById('url-delete2');
+        jQuery('#exampleModal').modal('show',{backdrop : 'static'});
+        var link = document.getElementById('url-delete');
         link.href = new_url;
     }
-
     
 </script>
-
 
 <!-- ====================================================================HTML============================================================================================-->
 <div class="row">
@@ -128,14 +99,15 @@
         <!-- div.dataTables_borderWrap -->
 
         <div>
-            <table id="dynamic-table3" class="table table-striped table-bordered table-hover"></table>
+            <table id="dynamic-table" class="table table-striped table-bordered table-hover"></table>
         </div>
     
     </div>
 </div> 
 
+
 <!--Modal-->
-<div class="modal fade" id="tourmodal"  tabindex="-1" role="dialog">
+<div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -146,13 +118,13 @@
       </div>
       <div class="modal-body">
         <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
-        <h4>¿Está seguro que quiere eliminar este evento?</h4>
+        <h4>¿Está seguro que quiere eliminar a este vehiculo?</h4>
       </div>
 
       <!--Este es el pie del modal aqui puedes agregar mas botones-->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a id="url-delete2" name="url-delete2" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
+        <a id="url-delete" name="url-delete" href="#" class="btn btn-danger btn-sm"><i class="fa fa-times">&nbsp;</i>Eliminar</a>
       </div>
     </div>
   </div>

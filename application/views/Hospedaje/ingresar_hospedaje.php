@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo site_url('pasajero')?>"><?php echo $before?></a></li>
+              <li class="breadcrumb-item"><a href="<?php echo site_url('Hospedaje')?>"><?php echo $before?></a></li>
               <li class="breadcrumb-item active"><?php echo $actual?></li>
             </ol>
           </div><!-- /.col -->

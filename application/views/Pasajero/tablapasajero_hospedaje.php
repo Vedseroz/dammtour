@@ -20,7 +20,7 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Hospedaje/getDatosHospedajeById/'.$this->uri->segment(3)); ?>",
+                "url": "<?= site_url('Hospedaje/getDatosHospedajeByIdPasajero/'.$this->uri->segment(3)); ?>",
                 "type": "POST"
             },
             "columnDefs":[

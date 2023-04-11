@@ -20,7 +20,7 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Transfer/getDatosTransferById/'.$this->uri->segment(3)); ?>",
+                "url": "<?= site_url('Transfer/getDatosTransferByIdPasajero/'.$this->uri->segment(3)); ?>",
                 "type": "POST"
             },
             "columnDefs":[

@@ -110,6 +110,15 @@ class Hospedaje extends CI_Controller{
 		echo json_encode($hospedaje);
 	}
 
+	public function getDatosHospedajeByIdPasajero($pasajero_id){ //cambiar nombre variable
+		$aux = $this->Hospedaje_model->getDatosHospedajeByIdPasajero($pasajero_id);
+		$hospedaje['draw'] = 0;
+		$hospedaje['recordsTotal'] = count($aux);
+		$hospedaje['recordsFiltered'] = count($aux);
+		$hospedaje['data'] = $aux;
+		echo json_encode($hospedaje);
+	}
+
 	public function getHospedajePorCiudad($ciudad){
 		$data = $this->Hospedaje_model->getHospedajePorCiudad($ciudad);
 		$data = json_encode($data);

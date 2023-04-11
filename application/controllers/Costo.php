@@ -107,6 +107,14 @@ class Costo extends CI_Controller {
 
     }
 
+    public function eliminarCosto($id_costo){
+		
+		$this->Costo_model->EliminarCosto($id_costo); //se elimina el evento.
+
+		redirect(site_url('costo'));
+	}
+
+
 
     
 	

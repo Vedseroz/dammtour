@@ -82,7 +82,7 @@
 
     function confirm_modal(id){
         console.log(id);
-        var url='<?php echo site_url('Chofer/eliminarChofer/')?>';
+        var url='<?php echo site_url('Costo/eliminarCosto/')?>';
         var new_url = url+id;
         //$("url-delete").attr("href",new_url);
         jQuery('#exampleModal').modal('show',{backdrop : 'static'});

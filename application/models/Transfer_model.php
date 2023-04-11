@@ -37,6 +37,12 @@ class Transfer_model extends CI_model {
         return $data;
     }
 
+    public function getDatosTransferByIdPasajero($pasajero_id){ //con este metodo se saca la data de los transfers asociados al pasajero.
+        $query = $this->db->query('SELECT id_transfer,id_pasajero_transfer,pasajero_id,cant_adultos,cant_ninos,cant_maletas,fechallegada,horallegada,fechasalida,horasalida,marca,modelo,patente FROM datos_transfer WHERE pasajero_id = '.$pasajero_id);
+        $data = $query->result_array();
+        return $data;
+    }
+
     public function InsertarTransfer($data){
         $this->db->insert('transfer',$data);
     }

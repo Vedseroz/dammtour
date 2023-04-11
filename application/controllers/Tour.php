@@ -13,13 +13,15 @@ class Tour extends CI_Controller{
         $this->load->model('Transfer_model');
 		$this->load->model('Vehiculo_model');
         $this->load->model('Tour_model');
+		$this->load->model('Pasajero_model');
+		$this->load->model('Localidad_model');
 
     }
 
     public function index(){
         $this->data['actual'] = 'Tours'; //esto deberia ser el breadcrumb.
         $this->data['before'] = 'Inicio';
-        $this->data['vista'] = 'Tour/tours'; //con esto se carga la vista
+        $this->data['vista'] = 'Tour/tour'; //con esto se carga la vista
         
     $this->load->view('template',$this->data);
 		
@@ -40,48 +42,47 @@ class Tour extends CI_Controller{
 		$this->load->view('template',$this->data);
 	}
 
-    public function IngresarTourForm($pasajero_id){
+    public function IngresarTourForm(){
+
 		
 
-		//form validation
-		$this->form_validation->set_rules("fechallegada3","<b>Fecha de Llegada</b>","required");
-		$this->form_validation->set_rules('horallegada3','<b>Hora de Llegada</b>','trim|required');
-		$this->form_validation->set_rules("fechasalida3","<b>Fecha de Salida</b>","required");
-		$this->form_validation->set_rules('horasalida3','<b>Hora de Salida</b>','trim|required');
-		$this->form_validation->set_rules('pais2','<b>Pais</b>','trim|required');
-		$this->form_validation->set_rules('ciudad2','<b>Ciudad</b>','trim|required');
-		$this->form_validation->set_rules('tour','<b>Posada</b>','trim|required');
-
-
-		//primero insertamos los datos asociados al hospedaje en especifico, la cantidad de ninos, adultos y maletas, en conjunto de que despues se asociara los datos 
-		//del chofer y del vehiculo.
-
-		$tour = $this->input->post('tour');
-
-		$id_tour = $this->Tour_model->getIdTour($tour); // obtenemos el id para ponerlo en la tabla de pasajero hospedaje
-		$tour_id = $id_tour[0]['id_tour'];
-
-
-		$datos_evento = array(   //captura de todos los datos del formulario
-			'fechallegada' => $this->input->post('fechallegada3'),
-			'horallegada' => $this->input->post('horallegada3'),
-			'fechasalida' => $this->input->post('fechasalida3'),
-			'horasalida' => $this->input->post('horasalida3'),
-			'pasajero_id' => $pasajero_id,
-			'tour_id' => $tour_id
+		$datos_localidad = array(   //captura de todos los datos del formulario
+			'ciudad' => strtoupper($this->input->post('ciudad')), //se deja todo en mayusculas
+			'pais' => strtoupper($this->input->post('pais')),
 		);
 
-        var_dump($datos_evento);
+		$flag = $this->Localidad_model->ComprobarCiudadPais($datos_localidad['ciudad'],$datos_localidad['pais']);
+		$flag = $flag[0]['COUNT(ciudad)'];
 
-		$estado_pasajero = array(
-			'pasajero_id' => $pasajero_id,
-			'estado' => 1
-		);
+		if($flag == '1'){
+			$localidad_id = $this->Localidad_model->getIdByCiudad($datos_localidad['ciudad']);
+			echo ' entro a 1 ';
+			var_dump($localidad_id);
+		}
+
+		if($flag == '0'){ //comprobamos si la instancia existe en la base de datos
+			$this->Localidad_model->InsertarLocalidad($datos_localidad); //inserta la nueva localidad
+			$localidad_id = $this->Localidad_model->getLastLocalidad(); // llama para obtener el ultimo id seleccionado
+			echo ' entro a 0 ';
+		}
+
+		var_dump($localidad_id);
 		
-		$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
-		$this->Tour_model->AgregarEventoTour($datos_evento);
+		$datos_tour = array(
+			'nombre_tour' => strtoupper($this->input->post('nombre_tour')),
+			'localidad_id' => $localidad_id[0]['id_localidad']
+		);
 
-		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
+		var_dump($datos_localidad);
+
+		$this->Tour_model->InsertarTour($datos_tour); //inserta el nombre del tour y el id de la localidad.
+
+        var_dump($datos_localidad);
+		
+		//$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
+		//$this->Tour_model->AgregarEventoTour($datos_evento);
+
+		redirect(site_url('Tour/IngresarTour/')); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
 	}
 
@@ -95,9 +96,56 @@ class Tour extends CI_Controller{
 		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
 	}
 
+	public function EliminarEventoTour2($id_pasajero_tour){
+		
+		$pasajero_id = $this->Tour_model->getPasajeroIdByEventoId($id_pasajero_tour);
+
+		$this->Tour_model->EliminarEventoTour($id_pasajero_tour); //se elimina el evento.
+
+		redirect(site_url('tour'));
+	}
+
+	public function EliminarTour($tour_id){ //se elimina el tour
+		$this->Tour_model->EliminarTour($tour_id);
+		redirect(site_url('Tour/IngresarTour'));
+
+	}
+
+	public function getDatosTour(){// esta funcion retorna todos los datos de la tabla de tours en conjunto de su nombre.
+		$datos_tour = $this->Tour_model->getDatosTour();
+		for($i=0;$i<count($datos_tour);$i++){
+		$datos_tour[$i]['nombre'] = $this->Pasajero_model->getNombreById($datos_tour[$i]['pasajero_id']);
+		}
+		$tour['draw'] = 0;                                                                                                  
+		$tour['recordsTotal'] = count($datos_tour);
+		$tour['recordsFiltered'] = count($datos_tour);
+		$tour['data'] = $datos_tour;
+		echo json_encode($tour);
+		return;
+	}
+
+	public function getTours(){// esta funcion retorna todos los datos de la tabla de tours en conjunto de su nombre.
+		$datos_tour = $this->Tour_model->getTours();
+		$tour['draw'] = 0;                                                                                                  
+		$tour['recordsTotal'] = count($datos_tour);
+		$tour['recordsFiltered'] = count($datos_tour);
+		$tour['data'] = $datos_tour;
+		echo json_encode($tour);
+		return;
+	}
+
 
 	public function getDatosTourById($pasajero_id){
 		$aux = $this->Tour_model->getDatosTourById($pasajero_id);
+		$tour['draw'] = 0;                                                                                                  
+		$tour['recordsTotal'] = count($aux);
+		$tour['recordsFiltered'] = count($aux);
+		$tour['data'] = $aux;
+		echo json_encode($tour);
+	}
+
+	public function getDatosTourByIdPasajero($pasajero_id){
+		$aux = $this->Tour_model->getDatosTourByIdPasajero($pasajero_id);
 		$tour['draw'] = 0;                                                                                                  
 		$tour['recordsTotal'] = count($aux);
 		$tour['recordsFiltered'] = count($aux);
