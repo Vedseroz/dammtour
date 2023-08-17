@@ -16,7 +16,8 @@ class Chofer_model extends CI_model {
             array('db'=>'chofer.apellido_chofer','dt'=>'apellido_chofer'),
             array('db'=>'chofer.rut_chofer','dt'=>'rut_chofer'),
             array('db' => 'chofer.telefono_chofer','dt'=>'telefono_chofer'),
-            array('db' => 'chofer.direccion_chofer','dt'=>'direccion_chofer')
+            array('db' => 'chofer.direccion_chofer','dt'=>'direccion_chofer'),
+            array('db' => 'chofer.correo','dt'=>'correo')
         );
         $data = $this->data_tables->complex($_POST,$table,$primarykey,$columns);
         return $data;

@@ -18,53 +18,37 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Tour/getDatosTour'); ?>",
+                "url": "<?= site_url('Tour/getResumenTours'); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
                     "title":'Nombre Pasajero',
-                    "data":'nombre',
+                    "data":'nombre_pasajero',
                     "targets":0,
                     "searchable":true,
                     "visible":true
                 },
                 {
-                    "title": 'Fecha',
-                    "data": 'fechallegada',
+                    "title": 'Detalles del Tour',
+                    "data": 'detalles_tour',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Hora',
-                    "data": 'horallegada',
+                    "title": 'Pais',
+                    "data": 'pais',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
                 },
                 {
-                    "title": 'Nombre Tour',
-                    "data": 'nombre_tour',
+                    "title": 'Ciudad',
+                    "data": 'ciudad',
                     "targets": 3,
                     "visible":true,
                     "searchable": true
-
-                },
-                {
-                    "title": 'Ciudad',
-                    "data": 'ciudad',
-                    "targets": 4,
-                    "visible":true,
-                    "searchable": true
-
-                },
-                {
-                    "title": 'Pais',
-                    "data": 'pais',
-                    "targets": 5,
-                    "visible":true,
-                    "searchable": false,
 
                 },
             ],
@@ -77,7 +61,7 @@
 
     function confirm_modal(id){
         console.log(id);
-        var url='<?php echo site_url('Vehiculo/eliminarVehiculo/')?>';
+        var url='<?php echo site_url('Tour/eliminarTour/')?>';
         var new_url = url+id;
         //$("url-delete").attr("href",new_url);
         jQuery('#exampleModal').modal('show',{backdrop : 'static'});

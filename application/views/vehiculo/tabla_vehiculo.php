@@ -6,7 +6,6 @@
 <script src="<?= base_url('assets/js/buttons.print.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/buttons.colVis.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/dataTables.select.min.js') ?>"></script>
-
 <style><?php include 'tabla_vehiculo.css'?></style>
 
 
@@ -60,25 +59,9 @@
 
                 },
                 {
-                    "title": 'Estado',
-                    "data": 'estado',
-                    "targets": 5,
-                    "visible":true,
-                    "searchable": false,
-                    "render": function(data,type,row){
-                        if(row.estado == 0){
-                            return '<span class="label label-success">'+ 'DISPONIBLE' +'</span>';
-                        }
-                        if(row.estado == 1){
-                            return '<span class="label label-success">'+ 'EN USO' +'</span>';
-                        }
-                    }
-
-                },
-                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 6,
+                "targets": 5,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){

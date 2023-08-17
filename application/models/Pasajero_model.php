@@ -91,8 +91,27 @@ class Pasajero_model extends CI_model {
         $this->db->update('pasajero',$data);
     }
 
-    //EVENTOS-----------------------------------------------------------------------------------------------------------------------------------------------
 
+    //ingresar servicio del pasajero (ticket de avion y esas cosas)-------------------------------------------------------------------------------
+
+    public function getDatosServicioPasajero($id_pasajero){
+        $query = $this->db->query('SELECT * FROM servicio WHERE pasajero_id = '.$id_pasajero);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function IngresarServicioPasajero($data){
+        $this->db->insert('servicio',$data);
+    }
+
+    public function EliminarServicioPasajero($data){
+        $this->db->delete('servicio',array('pasajero_id' => $data['pasajero_id']));
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    
+    //EVENTOS-----------------------------------------------------------------------------------------------------------------------------------------------
     public function AgregarEventoTransfer($data){
         $this->db->insert('pasajero_transfer',$data);
     }
@@ -104,11 +123,12 @@ class Pasajero_model extends CI_model {
     public function getPasajeroIdByEventoId($id_pasajero_transfer){
         $query = $this->db->query('SELECT pasajero_id FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
         $data = $query->result_array();
-        return $data;
+        return $data;  
+
     }
 
     public function getTransferIdByEventoId($id_pasajero_transfer){
-        $query = $this->db->query('SELECT transfer_id FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
+        $query = $this->db->query('SELECT id_transfer FROM datos_transfer WHERE id_pasajero_transfer = '.$id_pasajero_transfer);
         $data = $query->result_array();
         return $data;
     }

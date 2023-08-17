@@ -38,35 +38,65 @@
                 <?= form_open_multipart(site_url('Hospedaje/IngresarHospedajeForm'), 'class="form-horizontal" role="form"') ?>
                   
 
-                  <div class="marca">
-                    <label for="marca">Nombre del Hospedaje:</label>
+                  <div class="nombre">
+                    <label for="nombre">Nombre del Hospedaje:</label>
                     <input type="text" name="nombre_hospedaje" id="nombre_hospedaje" value="<?= set_value('nombre_hospedaje')?>">
                   </div>
 
-                  <div class="modelo">
-                    <label for="modelo">Direccion del Hospedaje:</label>
-                    <input type="text" name="direccion_hospedaje" id="direccion_hospedaje" value="<?= set_value('direccion_hospedaje')?>">
+                  <div class="pais1">
+                  <label for="pais1">Pais: </label>
+                  <select name="pais1" id="pais1" required>
+                  <option>Seleccione un pais</option>
+                  <!--CARGAMOS LOS PAISES EN EL SELECT-->
+                    <?php $this->load->model('Localidad_model');
+                    $paises = $this->Localidad_model->getPaises();
+                    var_dump($paises);
+                    for ($i = 0; $i < count($paises); $i++) {
+                    echo '<option value="' . $paises[$i]['pais'] . '">' . $paises[$i]['pais'] . '</option>';
+                    }
+                  ?>
+                  </select>
                   </div>
-                  
+
                   <div class="ciudad">
                     <label for="ciudad">Ciudad:</label>
-                    <input type="text" name="ciudad" id="ciudad" value="<?= set_value('ciudad')?>">
-                  </div>
+                    <select name="ciudad1" id="ciudad1" required>
+                    <option>Seleccione una Ciudad</option>
+                </select>
+                </div>
+                
+                <!--SCRIPT PARA LA SELECCION DINAMICA DE LA CIUDAD-->
+                  <script>
+                $(document).ready(function() {
+                  $("#pais1").change(function() {
+                    var pais_seleccionado = $(this).val();
+                    console.log(pais_seleccionado);
 
-                  <div class="comuna">
-                    <label for="comuna">Comuna:</label>
-                    <input type="text" name="comuna" id="comuna" value="<?= set_value('comuna')?>">
-                  </div>
+                    $.ajax({
+                      url: '<?php echo base_url(); ?>index.php/Localidad/getCiudadPorPais/' + pais_seleccionado,
+                      type: 'post',
+                      success: function(response) {
+                        // Add response in Modal body
+                        var data = JSON.parse(response);
+                        var text = '';
 
-                  <div class="pais">
-                    <label for="patente">Pais:</label>
-                    <input type="text" name="pais" id="pais" value="<?= set_value('pais')?>">
-                  </div>
+                        for (let i = 0; i < data.length; i++) {
+                          text += '<option value="' + data[i]['ciudad'] + '">' + data[i]['ciudad'] + '</option>';
+                        }
 
-                  <div class="telefono">
-                    <label for="patente">Telefono del Hospedaje:</label>
-                    <input type="text" name="telefono_hospedaje" id="telefono_hospedaje" value="<?= set_value('telefono_hospedaje')?>">
-                  </div>
+                        $('#ciudad1').html(text);
+
+                      }
+                    });
+
+
+
+                  })
+                })
+              </script>
+
+                  
+                  
 
 
 
@@ -82,9 +112,21 @@
                      </a>
                     </div>
                     
+                    <br>
+                    <hr>
+                    <h4>Hospedajes disponibles</h4>
+                    <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <?php $this->load->view('Hospedaje/tabla_hospedaje');?>
+                    </div>
+                    </div>
+
+
                     <!--fin del formulario-->
                   </form>
                   </div>
+
+                  
                 
                             
             

@@ -54,15 +54,6 @@ class Transfer extends CI_Controller{
 	}
 
     public function agregarTransfer($pasajero_id){
-		//form validation
-		$this->form_validation->set_rules("fechallegada","<b>Fecha de Llegada</b>","required");
-		$this->form_validation->set_rules('horallegada','<b>Hora de Llegada</b>','trim|required');
-		$this->form_validation->set_rules("fechasalida","<b>Fecha de Salida</b>","required");
-		$this->form_validation->set_rules('horasalida','<b>Hora de Salida</b>','trim|required');
-		$this->form_validation->set_rules('cant_adultos','<b>Cantidad de Adultos</b>','trim|required');
-		$this->form_validation->set_rules('cant_ninos','<b>Cantidad de Niños</b>','trim|required');
-		$this->form_validation->set_rules('cant_maletas','<b>Cantidad de Maletas</b>','trim|required');
-
 
 		//primero insertamos los datos asociados al transfer en especifico, la cantidad de ninos, adultos y maletas, en conjunto de que despues se asociara los datos 
 		//del chofer y del vehiculo.
@@ -71,7 +62,9 @@ class Transfer extends CI_Controller{
 			'cant_adultos' => $this->input->post('cant_adultos'),
 			'cant_ninos' => $this->input->post('cant_ninos'),
 			'cant_maletas' => $this->input->post('cant_maletas'),
-			'vehiculo_id' => $this->input->post('vehiculo')
+			'vehiculo_id' => $this->input->post('vehiculo'),
+			'chofer_id' => $this->input->post('chofer'),
+			'opcion' => $this->input->post('opcionesTransfer')
 		);
 
 		$this->Transfer_model->InsertarTransfer($datos_transfer);
@@ -104,10 +97,17 @@ class Transfer extends CI_Controller{
 		$pasajero_id = $this->Pasajero_model->getPasajeroIdByEventoId($id_pasajero_transfer);
 		$transfer_id = $this->Pasajero_model->getTransferIdByEventoId($id_pasajero_transfer);
 
+		$pasajero_id = $pasajero_id[0]['pasajero_id'];
+		$transfer_id = $transfer_id[0]['id_transfer'];
+
+		var_dump($pasajero_id);
+		var_dump($transfer_id);
+
 		$this->Pasajero_model->EliminarEventoTransfer($id_pasajero_transfer); //se elimina el evento.
 		$this->Transfer_model->EliminarTransfer($transfer_id);
 
-		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
+		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id));
+		
 	}
 
 	/*public function EditarEventoForm($id_voucher){
@@ -209,7 +209,38 @@ class Transfer extends CI_Controller{
 	}
 
 	
-	
+	//obtener el resumen de la data
+	public function getResumenTransfer(){
+		$transfers = $this->Transfer_model->getResumenTransfer();
+		//var_dump($transfers);
+		for ($i = 0;$i<count($transfers);$i++){  // con esto se le asignara el nombre del pasajero al transfer
+			$aux = preg_split('/\r\n|\r|\n/', $transfers[$i]['post_content']);
+			$transfers[$i]['nombre_pasajero'] = $aux[0];
+			$transfers[$i]['post_content'] = NULL;
+		}
+		
+		$data_tabla['draw'] = 0;
+		$data_tabla['recordsTotal'] = count($transfers); 
+		$data_tabla['recordsFiltered'] = count($transfers);
+		$data_tabla['data'] = $transfers;
+		echo json_encode($data_tabla);
+		return;
+
+		// UNA VEZ TERMINADA LA DATA, SE ENVIA A LA TABLA DE RESUMEN DE TRANSFERS.
+
+	}
+
+	public function getResumenTransferById($id_pasajero){
+		$transfers = $this->Transfer_model->getResumenTransferById($id_pasajero);
+		//var_dump($transfers[0]);
+		$data_tabla['draw'] = 0;
+		$data_tabla['recordsTotal'] = count($transfers); 
+		$data_tabla['recordsFiltered'] = count($transfers);
+		$data_tabla['data'] = $transfers;
+		echo json_encode($data_tabla);
+		return;
+
+	}
 
 
 }

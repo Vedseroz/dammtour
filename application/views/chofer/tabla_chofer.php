@@ -58,9 +58,16 @@
                     "visible":true               
                 },
                 {
+                    "title": 'Correo',
+                    "data": 'correo',
+                    "targets": 5,
+                    "searchable": true,
+                    "visible":true               
+                },
+                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 5,
+                "targets": 6,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){

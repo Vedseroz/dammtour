@@ -42,10 +42,9 @@ class Tour extends CI_Controller{
 		$this->load->view('template',$this->data);
 	}
 
-    public function IngresarTourForm(){
+    public function IngresarTourForm($pasajero_id){
 
-		
-
+		/* 	PLACEHOLDER CODIGO INSERVIBLE QUE PODRIA SERVIR ASI QUE NO BORRAR :).
 		$datos_localidad = array(   //captura de todos los datos del formulario
 			'ciudad' => strtoupper($this->input->post('ciudad')), //se deja todo en mayusculas
 			'pais' => strtoupper($this->input->post('pais')),
@@ -66,32 +65,34 @@ class Tour extends CI_Controller{
 			echo ' entro a 0 ';
 		}
 
-		var_dump($localidad_id);
+		var_dump($localidad_id);*/
 		
+		$localidad_id = $this->Localidad_model->getIdByCiudad($this->input->post('ciudad2'));
+
 		$datos_tour = array(
-			'nombre_tour' => strtoupper($this->input->post('nombre_tour')),
-			'localidad_id' => $localidad_id[0]['id_localidad']
+			'detalles_tour' => $this->input->post('tour'),
+			'localidad_id' => $localidad_id[0]['id_localidad'],
+			'pasajero_id' => $pasajero_id
 		);
 
-		var_dump($datos_localidad);
+		var_dump($datos_tour);
 
 		$this->Tour_model->InsertarTour($datos_tour); //inserta el nombre del tour y el id de la localidad.
 
-        var_dump($datos_localidad);
 		
 		//$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
 		//$this->Tour_model->AgregarEventoTour($datos_evento);
 
-		redirect(site_url('Tour/IngresarTour/')); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
+		redirect(site_url('pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
 	}
 
 	
-	public function EliminarEventoTour($id_pasajero_tour){
+	public function EliminarEventoTour($id_tour){
 		
-		$pasajero_id = $this->Tour_model->getPasajeroIdByEventoId($id_pasajero_tour);
+		$pasajero_id = $this->Tour_model->getPasajeroIdByEventoId($id_tour);
 
-		$this->Tour_model->EliminarEventoTour($id_pasajero_tour); //se elimina el evento.
+		$this->Tour_model->EliminarTour($id_tour); //se elimina el evento.
 
 		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
 	}
@@ -100,7 +101,7 @@ class Tour extends CI_Controller{
 		
 		$pasajero_id = $this->Tour_model->getPasajeroIdByEventoId($id_pasajero_tour);
 
-		$this->Tour_model->EliminarEventoTour($id_pasajero_tour); //se elimina el evento.
+		$this->Tour_model->EliminarEventoTour($id_tour); //se elimina el evento.
 
 		redirect(site_url('tour'));
 	}
@@ -109,6 +110,22 @@ class Tour extends CI_Controller{
 		$this->Tour_model->EliminarTour($tour_id);
 		redirect(site_url('Tour/IngresarTour'));
 
+	}
+
+	public function getResumenTours(){ //ESTA MUESTRA TODOS LOS TOURS QUE HAY EN LA PLATAFORMA.
+		$data = $this->Tour_model->getResumenTours();
+		//var_dump($transfers);
+		for ($i = 0;$i<count($data);$i++){  // con esto se le asignara el nombre del pasajero al transfer
+			$aux = preg_split('/\r\n|\r|\n/', $data[$i]['post_content']);
+			$data[$i]['nombre_pasajero'] = $aux[0];
+			$data[$i]['post_content'] = NULL;
+		}
+		$tours['draw'] = 0;
+		$tours['recordsTotal'] = count($data);
+		$tours['recordsFiltered'] = count($data);
+		$tours['data'] = $data;
+		echo json_encode($tours);
+		return;
 	}
 
 	public function getDatosTour(){// esta funcion retorna todos los datos de la tabla de tours en conjunto de su nombre.

@@ -31,23 +31,19 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Listar Hospedajes</h3>
+              <label>Agregar Hospedajes</label>
+              <a href="<?php echo site_url('Hospedaje/IngresarHospedaje')?>" class="btn btn-dark rounded-circle"><i class="fa fa-plus" aria-hidden="true"></i></a>
+
                         
                 <br><hr>
-
-                <ul>
-                    <li>
-                    <a href="<?php echo site_url('Hospedaje/IngresarHospedaje')?>" class="btn btn-dark"><p>Agregar Hospedaje</p><i class="fa fa-plus" aria-hidden="true"></i></a>
-
+                    <h2 class="card-title">Listar Hospedajes</h2>
                     <br>
                     <br>
                     <?php
-                      // en este sector se carga la tabla con todos los pasajeros. 
-                    $this->load->view('Hospedaje/tabla_hospedaje');
+                      // en este sector se carga la tabla con todos los pasajeros y sus hospedajes. 
+                    $this->load->view('Hospedaje/resumen_hospedaje');
                     ?>
 
-                    </li>
-                </ul>
             
 
               

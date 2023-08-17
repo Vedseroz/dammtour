@@ -24,20 +24,20 @@
           <li class="nav-item menu-open">
            
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-info-circle nav-icon"></i>
-                  <p>Resumen</p>
+            <li class="nav-item">
+                <a href="<?php echo site_url('inicio');?>" class="nav-link">
+                  <i class="fa fa-calendar nav-icon"></i>
+                  <p>Calendário</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('pasajero');?>" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
-                  <p>Pasajero</p>
+                  <p>Passageiro</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php //echo site_url('transfer');?>" class="nav-link">
+                <a href="<?php echo site_url('transfer');?>" class="nav-link">
                   <i class="fa fa-taxi nav-icon"></i>
                   <p>Transfer</p>
                 </a>
@@ -45,19 +45,19 @@
               <li class="nav-item">
                 <a href="<?php echo site_url('chofer');?>" class="nav-link">
                   <i class="fa fa-id-card nav-icon"></i>
-                  <p>Chofer</p>
+                  <p>Motorista</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('vehiculo');?>" class="nav-link">
                   <i class="fa fa-car nav-icon"></i></i>
-                  <p>Vehiculos</p>
+                  <p>Veículos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('hospedaje')?>" class="nav-link">
                   <i class="fa fa-building nav-icon"></i>
-                  <p>Hospedajes</p>
+                  <p>Alojamento</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -69,14 +69,20 @@
               <li class="nav-item">
                 <a href="<?php echo site_url('costo');?>" class="nav-link">
                   <i class="fa fa-dollar-sign nav-icon"></i>
-                  <p>Costo</p>
+                  <p>Custo</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fa fa-question-circle nav-icon"></i>
-                  <p>Informes</p>
+                  <p>Relatórios</p>
                 </a>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-info-circle nav-icon"></i>
+                  <p>Resumo</p>
+                </a>
+              </li>
             </ul>
           </li>
           

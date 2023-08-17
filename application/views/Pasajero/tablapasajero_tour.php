@@ -25,7 +25,6 @@
             },
             "columnDefs":[
                 {
-                    "data":'pasajero_id',
                     "targets":0,
                     "searchable":true,
                     "render": function (data,type,row,meta){
@@ -34,7 +33,7 @@
                 },
                 {
                     "title": 'Tour',
-                    "data": 'nombre_tour',
+                    "data": 'detalles_tour',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
@@ -54,42 +53,14 @@
 
                 },
                 {
-                    "title": 'Fecha de Llegada',
-                    "data": 'fechallegada',
-                    "targets": 4,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Hora de Llegada',
-                    "data": 'horallegada',
-                    "targets": 5,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Fecha de Salida',
-                    "data": 'fechasalida',
-                    "targets": 6,
-                    "visible":true
-
-                },
-                {
-                    "title": 'Hora de Salida',
-                    "data": 'horasalida',
-                    "targets": 7,
-                    "visible":true
-
-                },
-                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 8,
+                "targets": 4,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){
                     
-                    return '<a onclick="return confirm_modal2('+row.id_pasajero_tour+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#tourmodal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
+                    return '<a onclick="return confirm_modal2('+row.id_tour+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#tourmodal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
 
                     }
                 },

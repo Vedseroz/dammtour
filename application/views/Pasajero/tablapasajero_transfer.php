@@ -20,12 +20,12 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Transfer/getDatosTransferByIdPasajero/'.$this->uri->segment(3)); ?>",
+                "url": "<?= site_url('Transfer/getResumenTransferById/'.$this->uri->segment(3)); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "data":'pasajero_id',
+                    "data":'id_pasajero_transfer',
                     "targets":0,
                     "searchable":true,
                     "render": function (data,type,row,meta){
@@ -91,9 +91,36 @@
                     }
                 },
                 {
+                    "title": 'Chofer Designado',
+                    "data": null,
+                    "targets": 9,
+                    "visible":true,
+                    "render" : function(data,type,row){
+                        return row.nombre_chofer.split(' ')[0] +' '+row.apellido_chofer.split(' ')[0];
+                    }
+                },
+                {
+                    "title": 'Tipo de Viaje',
+                    "data": null,
+                    "targets": 10,
+                    "visible":true,
+                    "render" : function(data,type,row){
+                        switch(row.opcion){
+                            case '0':
+                                return 'Ida y vuelta';
+                            case '1':
+                                return 'Ida';
+                            case '2':
+                                return 'Vuelta';
+                            default:
+                                return 'No Data.';
+                        }
+                    }
+                },
+                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 9,
+                "targets": 11,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){

@@ -4,12 +4,10 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo site_url('inicio')?>" class="nav-link">Inicio</a>
-      </li>
+
      
 	  <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php base_url();?>auth/logout" class="nav-link">Cerrar sesion</a>
+        <a href="<?php base_url();?>auth/logout" class="nav-link">Fechar Sessão <i class="fa fa-power-off nav-icon"></i></a>
       </li>
     </ul>
 

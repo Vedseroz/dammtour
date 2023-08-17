@@ -13,6 +13,8 @@ class Hospedaje extends CI_Controller{
         $this->load->model('Transfer_model');
 		$this->load->model('Vehiculo_model');
         $this->load->model('Hospedaje_model');
+		$this->load->model('Localidad_model');
+
 
     }
 
@@ -40,48 +42,50 @@ class Hospedaje extends CI_Controller{
 		$this->load->view('template',$this->data);
 	}
 
-    public function IngresarHospedajeForm($pasajero_id){
+    public function IngresarHospedajeForm(){
 		//form validation
+		//con esto se pondran nuevos registros de hospedajes en cada una de las ciudades en la base de datos como el cliente estime conveniente.
+		//para agregar una nueva ciudad al sistema de hospedajes, se debera contactar directamente con el equipo desarrollador.
+		var_dump($this->input->post('ciudad'));
+		$aux = $this->Localidad_model->getIdByCiudad($this->input->post('ciudad1'));
+		$id_localidad = $aux[0]['id_localidad'];
+		var_dump($id_localidad);
 
-		//form validation
-		$this->form_validation->set_rules("fechallegada2","<b>Fecha de Llegada</b>","required");
-		$this->form_validation->set_rules('horallegada2','<b>Hora de Llegada</b>','trim|required');
-		$this->form_validation->set_rules("fechasalida2","<b>Fecha de Salida</b>","required");
-		$this->form_validation->set_rules('horasalida2','<b>Hora de Salida</b>','trim|required');
-		$this->form_validation->set_rules('pais1','<b>Pais</b>','trim|required');
-		$this->form_validation->set_rules('ciudad1','<b>Ciudad</b>','trim|required');
-		$this->form_validation->set_rules('posada','<b>Posada</b>','trim|required');
+		$datos_hospedaje = array(
+			'localidad_id' => $id_localidad,
+			'nombre_hospedaje' => strtoupper($this->input->post('nombre_hospedaje'))
+		);
 
+		//ingresar a la base de datos.
+		$this->Hospedaje_model->AgregarHospedaje($datos_hospedaje);
+		redirect(site_url('Hospedaje/IngresarHospedaje')); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
 
-		//primero insertamos los datos asociados al hospedaje en especifico, la cantidad de ninos, adultos y maletas, en conjunto de que despues se asociara los datos 
-		//del chofer y del vehiculo.
+	}
 
-		$posada = $this->input->post('posada');
-
-		$id_hospedaje = $this->Hospedaje_model->getIdHospedaje($posada); // obtenemos el id para ponerlo en la tabla de pasajero hospedaje
-		$hospedaje_id = $id_hospedaje[0]['id_hospedaje'];
-	
-
-		$datos_evento = array(   //captura de todos los datos del formulario
+	public function IngresarEventoHospedaje($pasajero_id){
+		//con esto obtenemos el id de la localidad referida a la instancia.
+		$aux = $this->Hospedaje_model->getIdHospedaje($this->input->post('posada'));
+		$id_hospedaje = $aux[0]['id_hospedaje'];
+		
+		//adquirimos todos los datos del formulario de pasajeros/hospedaje
+		$datos_evento = array(
+			'hospedaje_id' => $id_hospedaje,
+			'pasajero_id' =>$pasajero_id,
 			'fechallegada' => $this->input->post('fechallegada2'),
-			'horallegada' => $this->input->post('horallegada2'),
-			'fechasalida' => $this->input->post('fechasalida2'),
-			'horasalida' => $this->input->post('horasalida2'),
-			'pasajero_id' => $pasajero_id,
-			'hospedaje_id' => $hospedaje_id
+			'horallegada' =>$this->input->post('horallegada2'),
+			'fechasalida' =>$this->input->post('fechasalida2'),
+			'horasalida' =>$this->input->post('horasalida2'),
+			'recepcionista' => strtoupper($this->input->post('recepcionista'))
 		);
 
-		$estado_pasajero = array(
-			'pasajero_id' => $pasajero_id,
-			'estado' => 1
-		);
-		
-		$this->Pasajero_model->CambiarEstadoPasajero($estado_pasajero);
 		$this->Hospedaje_model->AgregarEventoHospedaje($datos_evento);
-		
+		redirect(site_url('Pasajero/editarPasajero/').$pasajero_id);
 
-		redirect(site_url('Pasajero/editarPasajero/'.$pasajero_id)); //se devuelve a la pantalla del pasajero al cual se le hizo el hospedaje.
+	}
 
+	public function EliminarHospedaje($hospedaje_id){ //eliminar el hospedaje de la lista de hospedajes disponibles.
+		$this->Hospedaje_model->EliminarHospedaje($hospedaje_id);
+		redirect(site_url('Hospedaje/IngresarHospedaje'));
 	}
 
 	
@@ -94,10 +98,29 @@ class Hospedaje extends CI_Controller{
 		redirect(site_url('pasajero/EditarPasajero/'.$pasajero_id[0]['pasajero_id']));
 	}
 
+	public function getResumenHospedaje(){
+		$data = $this->Hospedaje_model->getResumenHospedaje();
+		//var_dump($transfers);
+		for ($i = 0;$i<count($data);$i++){  // con esto se le asignara el nombre del pasajero al transfer
+			$aux = preg_split('/\r\n|\r|\n/', $data[$i]['post_content']);
+			$data[$i]['nombre_pasajero'] = $aux[0];
+			$data[$i]['post_content'] = NULL;
+		}
+		$hospedaje['draw'] = 0;
+		$hospedaje['recordsTotal'] = count($data);
+		$hospedaje['recordsFiltered'] = count($data);
+		$hospedaje['data'] = $data;
+		echo json_encode($hospedaje);
+		return;
+	}
 
     public function getDatosHospedaje(){
-		$data = $this->Hospedaje_model->datatable();
-		echo json_encode($data);
+		$data = $this->Hospedaje_model->getAllHospedajes();
+		$hospedaje['draw'] = 0;
+		$hospedaje['recordsTotal'] = count($data);
+		$hospedaje['recordsFiltered'] = count($data);
+		$hospedaje['data'] = $data;
+		echo json_encode($hospedaje);
 		return;
 	}
 
@@ -108,6 +131,7 @@ class Hospedaje extends CI_Controller{
 		$hospedaje['recordsFiltered'] = count($aux);
 		$hospedaje['data'] = $aux;
 		echo json_encode($hospedaje);
+		return;
 	}
 
 	public function getDatosHospedajeByIdPasajero($pasajero_id){ //cambiar nombre variable

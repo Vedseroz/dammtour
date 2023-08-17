@@ -52,10 +52,10 @@ class Vehiculo extends CI_Controller{
 			
 
 		$datos_vehiculo = array(
-			'marca' => $this->input->post('marca'),
-			'modelo' => $this->input->post('modelo'),
-			'tipo' => $this->input->post('tipo'),
-			'patente' => $this->input->post('patente'),
+			'marca' => strtoupper($this->input->post('marca')),
+			'modelo' => strtoupper($this->input->post('modelo')),
+			'tipo' => strtoupper($this->input->post('tipo')),
+			'patente' => strtoupper($this->input->post('patente')),
 			'cant_pasajeros' => $this->input->post('cant_pasajeros'),
 		);
 				
@@ -75,12 +75,14 @@ class Vehiculo extends CI_Controller{
 
 		$datos_vehiculo = array(
 			'id_vehiculo' => $id_vehiculo,
-			'marca' => $this->input->post('marca'),
-			'modelo' => $this->input->post('modelo'),
-			'tipo' => $this->input->post('tipo'),
-			'patente' => $this->input->post('patente'),
+			'marca' => strtoupper($this->input->post('marca')),
+			'modelo' => strtoupper($this->input->post('modelo')),
+			'tipo' => strtoupper($this->input->post('tipo')),
+			'patente' =>strtoupper($this->input->post('patente')),
 			'cant_pasajeros' => $this->input->post('cant_pasajeros'),
 		);
+
+		var_dump($datos_vehiculo);
 				
 		$this->Vehiculo_model->EditarVehiculo($datos_vehiculo);
 

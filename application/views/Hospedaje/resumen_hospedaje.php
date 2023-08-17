@@ -18,44 +18,89 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Hospedaje/getDatosHospedaje'); ?>",
+                "url": "<?= site_url('Hospedaje/getResumenHospedaje'); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "title":'Nombre Hospedaje',
-                    "data":'nombre_hospedaje',
+                    "title":'Nombre Pasajero',
+                    "data":'nombre_pasajero',
                     "targets":0,
                     "searchable":true,
                     "visible":true
                 },
                 {
-                    "title": 'Pais',
-                    "data": 'pais',
+                    "title": 'Fecha Llegada',
+                    "data": 'fechallegada',
                     "targets": 1,
+                    "searchable": false,
+                    "visible": true,
+                    "render": function(data,type){
+                        new_data = data.split('-');
+                        return new_data[2]+'/'+new_data[1]+'/'+new_data[0];
+                    }
+                },
+                {
+                    "title": 'Hora Llegada',
+                    "data": 'horallegada',
+                    "targets": 2,
+                    "searchable": false,
+                    "visible": true,
+                    "render": function(data,type){
+                        new_data = data.split(":");
+                        return new_data[0]+':'+new_data[1];
+                    }
+                },
+                {
+                    "title": 'Fecha Salida',
+                    "data": 'fechasalida',
+                    "targets": 3,
+                    "searchable": false,
+                    "visible": true,
+                    "render": function(data,type){
+                        new_data = data.split('-');
+                        return new_data[2]+'/'+new_data[1]+'/'+new_data[0];
+                    }
+                },
+                {
+                    "title": 'Hora Salida',
+                    "data": 'horasalida',
+                    "targets": 4,
+                    "searchable": false,
+                    "visible": true,
+                    "render": function(data,type){
+                        new_data = data.split(":");
+                        return new_data[0]+':'+new_data[1];
+                    }
+                },
+                {
+                    "title": 'Nombre Hospedaje',
+                    "data": 'nombre_hospedaje',
+                    "targets": 5,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Ciudad',
-                    "data": 'ciudad',
-                    "targets": 2,
+                    "title": 'Pais',
+                    "data": 'pais',
+                    "targets": 6,
                     "searchable": true,
                     "visible":true               
                 },
                 {
-                "title": 'Opciones',
-                "data": null,
-                "targets": 3,
-                "searchable": false,
-                "orderable": false,
-                "render": function(data,type,row){
-                    
-                    return '<a onclick="return confirm_modal('+row.id_hospedaje+');" type="button" class="btn btn-danger rounded-pill" data-toggle="modal" data-target="#exampleModal" id = "'+row.id+'"><i class="fa fa-times" aria-hidden="true"></i></a>'
-
-                    }
+                    "title": 'Ciudad',
+                    "data": 'ciudad',
+                    "targets": 7,
+                    "searchable": true,
+                    "visible":true               
                 },
-
+                {
+                    "title": 'Informacion Recepcion',
+                    "data": 'recepcionista',
+                    "targets": 8,
+                    "searchable": true,
+                    "visible":true               
+                },
             ],
             "order":[[0,"desc"]],
             "language": {
@@ -254,7 +299,7 @@
       </div>
       <div class="modal-body">
         <!--CONENIDO DEL MODAL, AQUI VA EL FORMULARIO-->  
-        <h4>¿Está seguro que quiere eliminar a este Hospedaje?</h4>
+        <h4>¿Está seguro que quiere eliminar a este chofer?</h4>
       </div>
 
       <!--Este es el pie del modal aqui puedes agregar mas botones-->

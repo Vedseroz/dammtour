@@ -35,13 +35,6 @@
 
               
                 <div class="row">
-                      <div class = 'col'>
-                        <label for="">Agregar Nuevo Tour</label>
-                      <a href="<?php echo site_url('Tour/IngresarTour')?>" class="btn btn-dark rounded-circle"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                      </div>
-                    </div>
-                    <hr>
-                    <br>
                     <h3>Tours Agendados por Pasajeros:</h3>
                     <div class = "row">
                       <div class = "col d-flex justify-content-center">

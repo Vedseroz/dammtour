@@ -14,7 +14,7 @@ class Tour_model extends CI_model {
     }
 
     public function getAllTours(){
-        $query = $this->db->query('SELECT * FROM datos_tour');
+        $query = $this->db->query('SELECT * FROM resumen_tour');
         $data = $query->result_array();
         return $data;
     }
@@ -52,24 +52,26 @@ class Tour_model extends CI_model {
     }
 
     public function getDatosTourByIdPasajero($pasajero_id){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
-        $query = $this->db->query('SELECT tour_id,id_pasajero_tour,pasajero_id,nombre_tour,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_tour WHERE pasajero_id = '.$pasajero_id);
+        $query = $this->db->query('SELECT id_tour,detalles_tour, ciudad, pais FROM tour_localidad WHERE pasajero_id = '.$pasajero_id);
         $data = $query->result_array();
         return $data;
     }
     
 
-    public function getPasajeroIdByEventoId($id_pasajero_tour){
-        $query = $this->db->query('SELECT pasajero_id FROM datos_tour WHERE id_pasajero_tour = '.$id_pasajero_tour);
+    public function getPasajeroIdByEventoId($id_tour){
+        $query = $this->db->query('SELECT pasajero_id FROM tour_localidad WHERE id_tour = '.$id_tour);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getResumenTours(){
+        $query = $this->db->query('SELECT * from resumen_tour');
         $data = $query->result_array();
         return $data;
     }
 
     public function InsertarTour($data){ // se agrega el tour a la tabla
         $this->db->insert('tour',$data);
-    }
-
-    public function EliminarEventoTour($id_pasajero_tour){
-        $this->db->delete('pasajero_tour',array('id_pasajero_tour' => $id_pasajero_tour));
     }
 
     public function EliminarTour($tour_id){

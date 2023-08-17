@@ -15,7 +15,7 @@ class Hospedaje_model extends CI_model {
     }
 
     public function getAllHospedajes(){
-        $query = $this->db->query('SELECT * FROM datos_hospedaje');
+        $query = $this->db->query('SELECT * FROM resumen_hospedaje');
         $data = $query->result_array();
         return $data;
     }
@@ -34,19 +34,33 @@ class Hospedaje_model extends CI_model {
     }
 
     public function getDatosHospedajeById($id_pasajero_hospedaje){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
-        $query = $this->db->query('SELECT hospedaje_id,pasajero_id,id_pasajero_hospedaje,nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE id_pasajero_hospedaje = '.$id_pasajero_hospedaje);
+        $query = $this->db->query('SELECT post_content,hospedaje_id,pasajero_id,id_pasajero_hospedaje,nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida,recepcionista FROM resumen_hospedaje WHERE id_pasajero_hospedaje = '.$id_pasajero_hospedaje);
         $data = $query->result_array();
         return $data;
     }
 
     public function getDatosHospedajeByIdPasajero($pasajero_id){ // de aqui se extrae la data para la tabla de hospedajes asociados al pasajero
-        $query = $this->db->query('SELECT hospedaje_id,pasajero_id,id_pasajero_hospedaje,nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE pasajero_id = '.$pasajero_id);
+        $query = $this->db->query('SELECT recepcionista,hospedaje_id,pasajero_id,id_pasajero_hospedaje,nombre_hospedaje,pais,ciudad,fechallegada,horallegada,fechasalida,horasalida FROM datos_hospedaje WHERE pasajero_id = '.$pasajero_id);
         $data = $query->result_array();
         return $data;
     }
 
     public function getPasajeroIdByEventoId($id_pasajero_hospedaje){
         $query = $this->db->query('SELECT pasajero_id FROM datos_hospedaje WHERE id_pasajero_hospedaje = '.$id_pasajero_hospedaje);
+        $data = $query->result_array();
+        return $data;
+    }
+
+    //agregar un nuevo hospedaje
+    public function AgregarHospedaje($data){
+        $this->db->insert('hospedaje',$data);
+    }
+    public function EliminarHospedaje($hospedaje_id){
+        $this->db->delete('hospedaje',array('id_hospedaje' => $hospedaje_id));
+    }
+
+    public function getResumenHospedaje(){
+        $query = $this->db->query('SELECT * from resumen_hospedaje');
         $data = $query->result_array();
         return $data;
     }

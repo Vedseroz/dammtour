@@ -15,6 +15,7 @@ class Pasajero extends CI_Controller {
 		$this->load->model('Pasajero_model');
 		$this->load->model('Wordpress_model');
 		$this->load->model('Localidad_model');
+		$this->load->model('Chofer_model');
 		$this->load->model('Vehiculo_model');
 		$this->load->model('Transfer_model');
 		$this->load->model('Hospedaje_model');
@@ -217,23 +218,65 @@ class Pasajero extends CI_Controller {
 		
 	}
 
+	//==================================================================================SERVICIO===================================================================================
+
+	public function IngresarServicioPasajero($id_pasajero){
+
+		$info_pasajero = array(
+			'pasajero_id' => $id_pasajero,
+			'n_vuelo' => strtoupper($this->input->post('nVuelo')),
+			'avion' => strtoupper($this->input->post('avion')),
+			'embarque' => strtoupper($this->input->post('embarque')),
+			'desembarque' => strtoupper($this->input->post('desembarque'))
+		);
+
+		$this->Pasajero_model->IngresarServicioPasajero($info_pasajero);
+
+		redirect(site_url('Pasajero/editarPasajero/').$id_pasajero);
+
+	}
+
+	public function EliminarServicioPasajero($id_pasajero){
+		$datos = array(
+			'pasajero_id' => $id_pasajero
+		);
+		$this->Pasajero_model->EliminarServicioPasajero($datos);
+
+		redirect(site_url('Pasajero/editarPasajero/'.$id_pasajero));
+
+	}
+
+	public function getDatosServicioPasajero($id_pasajero){
+
+		$data = $this->Pasajero_model->getDatosServicioPasajero($id_pasajero);
+		$servicios['draw'] = 0;
+		$servicios['recordsTotal'] = count($data); 
+		$servicios['recordsFiltered'] = count($data);
+		$servicios['data'] = $data;
+		echo json_encode($servicios);
+		return;
+
+	}
+
+	//=============================================================================================================================================================================
+
 	
 
 
 	public function getDatosPasajeroCalendario(){  //con este metodo se podra obtener todos los datos para ponerlos en el calendario
-		$data_tours = $this->Tour_model->getAllTours();
 		$data_hospedajes = $this->Hospedaje_model->getAllHospedajes();
 		$data_transfers = $this->Transfer_model->getAllTransfers();
 		
-		//var_dump($data_tours);
+		//var_dump($data_transfers);
 		//var_dump($data_hospedajes);
 
 		$data_calendario = array();
 
 		//moldeamos la data de los TRANSFERS
-		for($i = 0; $i<count($data_transfers);$i++){
+		for($i = 0; $i<(count($data_transfers));$i++){
 
-			$nombre = $this->Pasajero_model->getNombreById($data_transfers[$i]['pasajero_id']);
+			$aux = preg_split('/\r\n|\r|\n/',$data_transfers[$i]['post_content']); //de aca se saca la data de post_content y se divide en un subarray.
+			$nombre = $aux[0];
 			$transfer = array(
 				'id' => $data_transfers[$i]['id_pasajero_transfer'],
 				'title'=>'PASAJERO: '.$nombre.' '.'EVENTO: Transfer',
@@ -241,14 +284,16 @@ class Pasajero extends CI_Controller {
 				'end'=>$data_transfers[$i]['fechasalida'].' '.$data_transfers[$i]['horasalida'],
 			);
 
+			//var_dump($transfer);
 			array_push($data_calendario,$transfer);
 
 		}
 
 		//ahora toca modelar la data de los HOSPEDAJES
-		for($i = 0; $i<count($data_hospedajes);$i++){
+		for($i = 0; $i < count($data_hospedajes);$i++){	
 
-			$nombre = $this->Pasajero_model->getNombreById($data_hospedajes[$i]['pasajero_id']);
+			$aux = preg_split('/\r\n|\r|\n/',$data_hospedajes[$i]['post_content']);
+			$nombre = $aux[0];
 			$hospedajes = array(
 				'id' => $data_hospedajes[$i]['id_pasajero_hospedaje'],
 				'title'=>'PASAJERO: '.$nombre.' '.'EVENTO: Hospedaje en '.$data_hospedajes[$i]['nombre_hospedaje'],
@@ -258,24 +303,9 @@ class Pasajero extends CI_Controller {
 
 			array_push($data_calendario,$hospedajes);
 
+			
 		}
-
-
-		//Y por ultimo el ultimo modelado de datos de los TOURS
-		for($i = 0; $i<count($data_tours);$i++){
-
-			$nombre = $this->Pasajero_model->getNombreById($data_tours[$i]['pasajero_id']);
-			$tours = array(
-				'id' => $data_tours[$i]['id_pasajero_tour'],
-				'title'=>'PASAJERO: '.$nombre.' '.'EVENTO: Tour en '.$data_tours[$i]['nombre_tour'],
-				'start'=>$data_tours[$i]['fechallegada'].' '.$data_tours[$i]['horallegada'],
-				'end'=>$data_tours[$i]['fechasalida'].' '.$data_tours[$i]['horasalida'],
-			);
-
-			array_push($data_calendario,$tours);
-
-		}
-
+		
 
 		//finalmente transformamos a JSON
 		echo json_encode($data_calendario);
@@ -293,43 +323,37 @@ class Pasajero extends CI_Controller {
 		return;*/
 	}
 
-	public function getDatosPasajerosCalendarioById($id_evento){
-
+	public function getDatosPasajerosCalendarioById($string){
+		$string = urldecode($string);
+		$aux = explode(' ',$string);
+		$id_evento = $aux[0];
 		//probamos con los transfers
-		$data = $this->Transfer_model->getDatosTransferById($id_evento);
-		if($data != NULL){
-			if($data[0]['id_transfer'] != NULL){
-				$nombre = $this->Pasajero_model->getNombreById($data[0]['pasajero_id']);
-				$data[0]['nombre'] = $nombre;
-				$data = json_encode($data[0]);
-				var_dump($data);
-				return $data;
+	
+		if(strpos($string,'Transfer')){
+			$data = $this->Transfer_model->getDatosTransferById($id_evento);
+			if($data != NULL){
+				if($data[0]['id_transfer'] != NULL){
+					$data[0]['nombre'] = preg_split('/\r\n|\r|\n/',$data[0]['post_content'])[0];
+					$data[0]['post_content'] = null;
+					$data = json_encode($data[0]);
+					var_dump($data);
+					return $data;
+				}
 			}
 		}
 		//comprobamos lo mismo con los hospedajes
-		$data = $this->Hospedaje_model->getDatosHospedajeById($id_evento);
-		if($data != NULL){
-		 	if($data[0]['hospedaje_id'] != NULL){
-				$nombre = $this->Pasajero_model->getNombreById($data[0]['pasajero_id']);
-				$data[0]['nombre'] = $nombre;
-				$data = json_encode($data[0]);
-				var_dump($data);
-				return $data;
+		if(strpos($string,'Hospedaje')){
+			$data = $this->Hospedaje_model->getDatosHospedajeById($id_evento);
+			if($data != NULL){
+				if($data[0]['hospedaje_id'] != NULL){
+					$data[0]['nombre'] = preg_split('/\r\n|\r|\n/',$data[0]['post_content'])[0];
+					$data[0]['post_content'] = null;
+					$data = json_encode($data[0]);
+					var_dump($data);
+					return $data;
+				}
 			}
 		}
-		// y por ultimo vemos los mismo con los tours, si es que no devuelve null
-		
-		$data = $this->Tour_model->getDatosTourById($id_evento);
-		if($data != NULL){
-			if($data[0]['tour_id']!=NULL){
-				$nombre = $this->Pasajero_model->getNombreById($data[0]['pasajero_id']);
-				$data[0]['nombre'] = $nombre;
-				$data = json_encode($data[0]);
-				var_dump($data);
-				return $data;
-			}
-		}
-
 	}
 
 

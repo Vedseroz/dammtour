@@ -82,9 +82,16 @@
 
                 },
                 {
+                    "title": 'Informacion Recepcion',
+                    "data": 'recepcionista',
+                    "targets": 8,
+                    "visible":true
+
+                },
+                {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 8,
+                "targets": 9,
                 "searchable": false,
                 "orderable": false,
                 "render": function(data,type,row){

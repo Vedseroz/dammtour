@@ -18,51 +18,131 @@
             "bAutoWidth":false,
             "processing":true,
             "ajax":{
-                "url": "<?= site_url('Pasajero/getDatosPasajerosTabla'); ?>",
+                "url": "<?= site_url('Transfer/getResumenTransfer'); ?>",
                 "type": "POST"
             },
             "columnDefs":[
                 {
-                    "title":'Nombre',
-                    "data":'nombre',
+                    "title":'Nombre Pasajero',
+                    "data":'nombre_pasajero',
                     "targets":0,
                     "searchable":true,
                     "visible":true
                 },
                 {
-                    "title": 'Apellido',
-                    "data": 'apellido',
+                    "title": 'Cantidad adultos',
+                    "data": 'cant_adultos',
                     "targets": 1,
                     "searchable": false,
                     "visible": true
                 },
                 {
-                    "title": 'Telefono',
-                    "data": 'telefono',
+                    "title": 'Cantidad Niños',
+                    "data": 'cant_ninos',
                     "targets": 2,
                     "searchable": true,
                     "visible":true               
                 },
                 {
-                    "title": 'Servicios',
-                    "data": 'servicios',
+                    "title": 'Cantidad Maletas',
+                    "data": 'cant_maletas',
                     "targets": 3,
                     "visible":true
 
                 },
                 {
-                "title": 'Opciones',
-                "data": null,
-                "targets": 4,
-                "searchable": false,
-                "orderable": false,
-                "render": function(data,type,row,meta){
-                    
-                    var link = '<?php echo site_url('Transfer/AsignarTransfer'); ?>/' + row.id_pasajero;
-                    return '<a class="btn btn-dark" href="'+link+'" role="button"> Asignar Transfer </a>'
-
+                    "title": 'Fecha Llegada',
+                    "data": 'fechallegada',
+                    "targets": 4,
+                    "visible":true,
+                    "render": function(data,type){
+                        new_data = data.split('-');
+                        return new_data[2]+'/'+new_data[1]+'/'+new_data[0];
                     }
-                },  
+
+                },
+                {
+                    "title": 'Hora Llegada',
+                    "data": 'horallegada',
+                    "targets": 5,
+                    "visible":true,
+                    "render": function(data,type){
+                        new_data = data.split(":");
+                        return new_data[0]+':'+new_data[1];
+                    }
+
+                },
+                {
+                    "title": 'Fecha Salida',
+                    "data": 'fechasalida',
+                    "targets": 6,
+                    "visible":true,
+                    "render": function(data,type){
+                        new_data = data.split('-');
+                        return new_data[2]+'/'+new_data[1]+'/'+new_data[0];
+                    }
+
+                },
+                {
+                    "title": 'Hora Salida',
+                    "data": 'horasalida',
+                    "targets": 7,
+                    "visible":true,
+                    "render": function(data,type){
+                        new_data = data.split(":");
+                        return new_data[0]+':'+new_data[1];
+                    }
+
+                },
+                {
+                    "title": 'Nombre Chofer',
+                    "data": 'nombre_chofer',
+                    "targets": 8,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Apellido Chofer',
+                    "data": 'apellido_chofer',
+                    "targets": 9,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Telefono Chofer',
+                    "data": 'telefono_chofer',
+                    "targets": 10,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Marca Vehiculo',
+                    "data": 'marca',
+                    "targets": 11,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Modelo Vehiculo',
+                    "data": 'modelo',
+                    "targets": 12,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Tipo Vehiculo',
+                    "data": 'tipo',
+                    "targets": 13,
+                    "visible":true
+
+                },
+                {
+                    "title": 'Patente Vehiculo',
+                    "data": 'patente',
+                    "targets": 14,
+                    "visible":true
+
+                }, 
 
             ],
             "order":[[0,"desc"]],

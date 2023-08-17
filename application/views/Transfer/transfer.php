@@ -34,10 +34,6 @@
                 <h3 class="card-title">Lista de Transfer</h3>
                         
                 <br><hr>
-
-
-                    <br>
-                    <br>
                     <?php
                       // en este sector se carga la tabla con todos los pasajeros. 
                       $this->load->view('Transfer/tablatransfer');

@@ -70,21 +70,19 @@
 
     eventClick: function(info) {   //se carga la informacion de cada una de las instancias clickeadas.
       // AJAX request
-      console.log(info.event.id);
+      console.log(info.event.id+' '+info.event.title);
       $.ajax({
-        url: '<?php echo base_url();?>index.php/Pasajero/getDatosPasajerosCalendarioById/'+info.event.id,
+        url: '<?php echo base_url();?>index.php/Pasajero/getDatosPasajerosCalendarioById/'+info.event.id+' '+info.event.title,
         type: 'post',
         success: function(response){ 
            // Add response in Modal body
            var string = response;
            var new_string = string.slice(13,(string.length-2));
-           console.log(new_string);
 
            var data = JSON.parse(new_string);
-           console.log(data);
            var text = '';
 
-           if(data.id_transfer!=undefined){ // caso de que sea un transfer
+           if(data.id_pasajero_transfer!=undefined){ // caso de que sea un transfer
 
             data.fechallegada =  data.fechallegada.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
             data.fechasalida = data.fechasalida.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
@@ -102,6 +100,7 @@
            text += '<li><label for="fecha">HORA DE SALIDA:</label>'+' '+data.horasalida+'</li>';
            text += '<li><label for="fecha">VEHICULO:</label>'+' '+data.marca+' '+data.modelo+'</li>';
            text += '<li><label for="fecha">PATENTE VEHICULO:</label>'+' '+data.patente+'</li>';
+           text += '<li><label for="fecha">CHOFER DESIGNADO:</label>'+' '+data.nombre_chofer.split(' ')[0]+' '+data.apellido_chofer.split(' ')[0]+'</li>';
            text += '</ul>'
            }
 
@@ -115,6 +114,7 @@
            text += '<li><label for="nombre">Pais:</label>'+' '+data.pais+'</li>';
            text += '<li><label for="apellido">Ciudad:</label>'+' '+data.ciudad+'</li>';
            text += '<li><label for="telefono">Posada:</label>'+' '+data.nombre_hospedaje+'</li>';
+           text += '<li><label for="telefono">Información Recepción</label>'+' '+data.recepcionista+'</li>';
            text += '<br><hr>'
            text += '<h5>Informacion Hospedaje</h5>'+' ';
            text += '<li><label for="fecha">FECHA DE LLEGADA:</label>'+' '+data.fechallegada+'</li>';

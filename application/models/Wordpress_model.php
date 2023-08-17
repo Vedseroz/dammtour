@@ -61,39 +61,36 @@ class Wordpress_model extends CI_model {
             $aux[$i]['fecha_inicio'] = $output[$i]['post_content'][2]; //FECHA INICIO
             $aux[$i]['hora_inicio'] = $output[$i]['post_content'][3]; //HORA INICIO
             $aux[$i]['email'] = $output[$i]['post_content'][4]; //CORREO
-            $aux[$i]['destino'] = $output[$i]['post_content'][5]; //DESTINO
+            $aux[$i]['destino'] = strtoupper($output[$i]['post_content'][5]); //DESTINO
+            $aux[$i]['cant_adultos'] = $output[$i]['post_content'][6];
 
-            if(is_numeric($output[$i]['post_content'][6]) == true){     //en caso de que este indice tenga un valor numerico.
+            if(is_numeric($output[$i]['post_content'][7]) == true){     //en caso de que este indice tenga un valor numerico.
                 $aux[$i]['cant_ninos'] = $output[$i]['post_content'][6];
             } else {
                 $aux[$i]['cant_ninos'] = '0'; //si no, la cantidad de ninos es 0
             }
 
             $servicios = array();
-            if($output[$i]['post_content'][6] == 'Transfer' || $output[$i]['post_content'][6] == 'Hospedaje' || $output[$i]['post_content'][6] == 'Tour'){
-                array_push($servicios,$output[$i]['post_content'][6]);
+            if($output[$i]['post_content'][7] == 'Transfer' || $output[$i]['post_content'][7] == 'Hospedaje' || $output[$i]['post_content'][7] == 'Tour'){
+                array_push($servicios,$output[$i]['post_content'][7]);
             } 
             //comprueba la siguiente casilla
-            if($output[$i]['post_content'][7] == 'Transfer' || $output[$i]['post_content'][7] == 'Hospedaje'  || $output[$i]['post_content'][7] == 'Tour'){
-                array_push($servicios,$output[$i]['post_content'][7]);
-            }
-            //comprueba la ultima casilla de los servicios
             if($output[$i]['post_content'][8] == 'Transfer' || $output[$i]['post_content'][8] == 'Hospedaje'  || $output[$i]['post_content'][8] == 'Tour'){
                 array_push($servicios,$output[$i]['post_content'][8]);
             }
-
+            //comprueba la ultima casilla de los servicios
             if($output[$i]['post_content'][9] == 'Transfer' || $output[$i]['post_content'][9] == 'Hospedaje'  || $output[$i]['post_content'][9] == 'Tour'){
                 array_push($servicios,$output[$i]['post_content'][9]);
+            }
+
+            if($output[$i]['post_content'][10] == 'Transfer' || $output[$i]['post_content'][10] == 'Hospedaje'  || $output[$i]['post_content'][10] == 'Tour'){
+                array_push($servicios,$output[$i]['post_content'][10]);
             }
 
             $servicios = implode(' ',$servicios);
             $aux[$i]['servicios'] = $servicios;
 
-            if(is_numeric($output[$i]['post_content'][7]) == false && filter_var($output[$i]['post_content'][7], FILTER_VALIDATE_IP) == false && $output[$i]['post_content'][7] != 'Transfer' && $output[$i]['post_content'][7] != 'Hospedaje'  && $output[$i]['post_content'][7] != 'Tour'){ //en caso de que NO SEAN valores numericos
-                $aux[$i]['detalles'] = $output[$i]['post_content'][7];
-            }
-
-            if(is_numeric($output[$i]['post_content'][8]) == false && filter_var($output[$i]['post_content'][8], FILTER_VALIDATE_IP) == false && $output[$i]['post_content'][8] != 'Transfer' && $output[$i]['post_content'][8] != 'Hospedaje'  && $output[$i]['post_content'][8] != 'Tour'){
+            if(is_numeric($output[$i]['post_content'][8]) == false && filter_var($output[$i]['post_content'][8], FILTER_VALIDATE_IP) == false && $output[$i]['post_content'][8] != 'Transfer' && $output[$i]['post_content'][8] != 'Hospedaje'  && $output[$i]['post_content'][8] != 'Tour'){ //en caso de que NO SEAN valores numericos
                 $aux[$i]['detalles'] = $output[$i]['post_content'][8];
             }
 
@@ -105,21 +102,10 @@ class Wordpress_model extends CI_model {
                 $aux[$i]['detalles'] = $output[$i]['post_content'][10];
             }
 
-            if(is_numeric($output[$i]['post_content'][8]) == true){ //en caso de que sean valores numericos
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][8];
+            if(is_numeric($output[$i]['post_content'][11]) == false && filter_var($output[$i]['post_content'][11], FILTER_VALIDATE_IP) == false && $output[$i]['post_content'][11] != 'Transfer' && $output[$i]['post_content'][11] != 'Hospedaje'  && $output[$i]['post_content'][11] != 'Tour'){
+                $aux[$i]['detalles'] = $output[$i]['post_content'][11];
             }
 
-            if(is_numeric($output[$i]['post_content'][9]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][9];
-            }
-
-            if(is_numeric($output[$i]['post_content'][10]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][10];
-            }
-
-            if(is_numeric($output[$i]['post_content'][11]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][11];
-            }
     
         }
 
@@ -147,6 +133,7 @@ class Wordpress_model extends CI_model {
             $aux[$i]['hora_inicio'] = $output[$i]['post_content'][3]; //HORA INICIO
             $aux[$i]['email'] = $output[$i]['post_content'][4]; //CORREO
             $aux[$i]['destino'] = $output[$i]['post_content'][5]; //DESTINO
+            $aux[$i]['cant_adultos'] = $output[$i]['post_content'][6];
 
             if(is_numeric($output[$i]['post_content'][6]) == true){     //en caso de que este indice tenga un valor numerico, se asigna este valor a los ninos
                 $aux[$i]['cant_ninos'] = $output[$i]['post_content'][6];
@@ -190,21 +177,6 @@ class Wordpress_model extends CI_model {
                 $aux[$i]['detalles'] = $output[$i]['post_content'][10];
             }
 
-            if(is_numeric($output[$i]['post_content'][8]) == true){ //en caso de que sean valores numericos
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][8];
-            }
-
-            if(is_numeric($output[$i]['post_content'][9]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][9];
-            }
-
-            if(is_numeric($output[$i]['post_content'][10]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][10];
-            }
-
-            if(is_numeric($output[$i]['post_content'][11]) == true){
-                $aux[$i]['cant_adultos'] = $output[$i]['post_content'][11];
-            }
     
         }
 

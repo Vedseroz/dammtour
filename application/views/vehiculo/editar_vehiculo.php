@@ -35,7 +35,7 @@
                         
                 <br><hr>
                 
-                <?= form_open_multipart(site_url('Vehiculo/EditarVehiculoForm'), 'class="form-horizontal" role="form"') ?>
+                <?= form_open_multipart(site_url('Vehiculo/EditarVehiculoForm/'.$this->uri->segment(3)), 'class="form-horizontal" role="form"') ?>
                   
 
                   <div class="marca">

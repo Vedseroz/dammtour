@@ -1,0 +1,28 @@
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Cooper Black";
+	panose-1:2 8 9 4 4 3 11 2 4 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-left:20px;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman",serif;}
+@page WordSection1
+	{size:595.0pt 841.8pt;
+	margin:72.0pt 72.0pt 7.3pt 14.0pt;}
+.WordSection1
+	{page:WordSection1;}
+@page WordSection2
+	{size:595.0pt 841.8pt;
+	margin:72.0pt 72.0pt 7.3pt 14.0pt;}
+.WordSection2
+	{page:WordSection2;}
+
